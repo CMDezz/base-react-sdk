@@ -1,0 +1,24 @@
+export enum SDK_ERROR_TYPES {
+  INITIALIZE = "INITIALIZE",
+  AUTH = "AUTH",
+  PERMISSION = "PERMISSION",
+  NETWORKING = "NETWORKING",
+}
+export enum SDK_ERROR_MESSAGES {
+  INVALID_CONFIG = "INVALID CONFIGS, PLEASE CHECK CONFIGS",
+  NOT_INITIALIZED = "PLEASE INITIALIZE THE SDK FIRST",
+  MISSING_API_KEY = "MISSING API KEY, PLEASE CHECK AGAIN",
+  MISSING_TARGET = "MISSING TARGET FRAMEWORK, PLEASE CHECK AGAIN",
+  INVALID_API_KEY = "IVVALID API KEY, PLEASE CHECK AGAIN",
+}
+
+//error instances
+//may log error type/message
+
+export class InitializeError extends Error {
+  readonly type: SDK_ERROR_TYPES;
+  constructor(message: string) {
+    super(message);
+    this.type = SDK_ERROR_TYPES.INITIALIZE;
+  }
+}

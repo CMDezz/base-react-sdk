@@ -1,0 +1,20 @@
+node_modules/
+**/node_modules/
+
+dist/
+build/
+**/dist/
+**/build/
+
+# .vite/
+# .vite/*
+# .next/
+# **/.next/
+
+# .env -> ignore this later
+# .env.* -> ignore this later
+!.env.example
+
+.vscode/*
+
+package-lock.json

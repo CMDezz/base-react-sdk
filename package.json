@@ -1,0 +1,41 @@
+{
+  "name": "my-react-sdk",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/my-react-sdk.umd.cjs",
+  "module": "./dist/my-react-sdk.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/my-react-sdk.js",
+      "require": "./dist/my-react-sdk.umd.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && tsc",
+    "preview": "vite preview",
+    "serve-sdk":"npx serve -l 8080 dist",
+    "dev-react-16": "cd Test/React16 && [ -d node_modules ] || npm install && npx react-scripts start",
+    "dev-react-19": "cd Test/React16 && [ -d node_modules ] || npm install && npx react-scripts start"
+
+},
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8"
+  },
+  "dependencies": {
+    "vite-plugin-css-injected-by-js": "^3.5.2"
+  }
+}

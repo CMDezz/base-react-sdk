@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SDK Demo</title>
+  </head>
+  <body>
+    <div id="root">
+      <p>hehe</p>
+      <div is="savvy-sdk-comp"></div>
+    </div>
+    <!-- Load the plain JS demo app entry point -->
+    <!-- <script type="module" src="/src/main.tsx"></script> -->
+    <script src="http://localhost:8080/my-sdk.umd.js"></script>
+    <script type="module" defer>
+      // You can now instantiate your class from the bundled SDK
+      // In an HTML file after loading the script
+      const ekyc = new EkycInstance();
+      ekyc.initialize({
+        core: {
+          API_KEY: "123",
+          TARGET: "BROWSER",
+        },
+      });
+      console.log("SDK instance created:", ekyc);
+      ekyc.render();
+    </script>
+  </body>
+</html>
