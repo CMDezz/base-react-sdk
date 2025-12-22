@@ -1,7 +1,11 @@
 import Button from "../base/Button";
 import useApiKey from "../hooks/useApiKey";
 
-function RenderSDKContent({ context }: { context: SDKContext }) {
+interface Props {
+  context: SDKContext;
+  err?: Error;
+}
+function RenderSDKContent({ context }: Props) {
   const { API_KEY } = useApiKey({
     API_KEY: context.config.core.API_KEY,
   });

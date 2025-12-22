@@ -2,9 +2,14 @@ import { createRoot } from "react-dom/client";
 import RenderSDKContent from "./components/RenderSDKContent.tsx";
 import "./SavvySDKComp.ts";
 import { DEFAULT_SDK_CONFIG } from "./utils/config.ts";
-import { InitializeError, SDK_ERROR_MESSAGES } from "./utils/errors.ts";
+import {
+  InitializeError,
+  SDK_ERROR_MESSAGES,
+  SDKError,
+} from "./utils/errors.ts";
 import ReactDOM from "react-dom";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
+import Fallback from "./components/Fallback.tsx";
 
 class EkycInstance {
   private context: SDKContext;
@@ -72,14 +77,8 @@ class EkycInstance {
   }
 
   //handle error processors
-  private errorProcessor(err: Error) {
-    if (err instanceof InitializeError) {
-      // handle init error
-      return;
-    }
-
-    // fallback
-    console.error("Unknown error", err);
+  private errorProcessor(err: SDKError) {
+    this.renderByTarget(this.context.config.core.TARGET, err);
   }
 
   //init sdk
@@ -88,31 +87,33 @@ class EkycInstance {
       this.validatePresequites(config);
       this.initialized = true;
     } catch (err) {
-      this.errorProcessor(err as Error);
+      this.errorProcessor(err as SDKError);
     }
   }
 
-  private renderByTarget(target: string) {
+  private renderByTarget(target: string, err?: SDKError) {
+    const Comp = err ? Fallback : RenderSDKContent;
     if (target === "REACT") {
       ReactDOM.render(
-        <RenderSDKContent context={this.context} />,
+        <Comp context={this.context} err={err} />,
         this.context.container
       );
     } else if (target === "BROWSER") {
       createRoot(this.context.container as any).render(
-        <RenderSDKContent context={this.context} />
+        <Comp context={this.context} err={err} />
       );
     }
   }
   //render ui ekyc
   render() {
     try {
+      throw new InitializeError(SDK_ERROR_MESSAGES.NOT_INITIALIZED);
       if (!this.initialized) {
         throw new InitializeError(SDK_ERROR_MESSAGES.NOT_INITIALIZED);
       }
       this.renderByTarget(this.context.config.core.TARGET);
     } catch (err) {
-      this.errorProcessor(err as Error);
+      this.errorProcessor(err as SDKError);
     }
   }
 

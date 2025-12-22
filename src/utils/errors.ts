@@ -3,6 +3,7 @@ export enum SDK_ERROR_TYPES {
   AUTH = "AUTH",
   PERMISSION = "PERMISSION",
   NETWORKING = "NETWORKING",
+  UNKNOWN = "UNKNOWN",
 }
 export enum SDK_ERROR_MESSAGES {
   INVALID_CONFIG = "INVALID CONFIGS, PLEASE CHECK CONFIGS",
@@ -12,13 +13,26 @@ export enum SDK_ERROR_MESSAGES {
   INVALID_API_KEY = "IVVALID API KEY, PLEASE CHECK AGAIN",
 }
 
-//error instances
-//may log error type/message
-
-export class InitializeError extends Error {
+export class SDKError extends Error {
   readonly type: SDK_ERROR_TYPES;
-  constructor(message: string) {
+  readonly recoverable: boolean;
+
+  constructor(
+    message: string,
+    type: SDK_ERROR_TYPES = SDK_ERROR_TYPES.UNKNOWN,
+    recoverable: boolean = false
+  ) {
     super(message);
-    this.type = SDK_ERROR_TYPES.INITIALIZE;
+    this.type = type;
+    this.recoverable = recoverable;
+
+    Object.setPrototypeOf(this, SDKError.prototype);
+  }
+}
+
+export class InitializeError extends SDKError {
+  constructor(message: string, recoverable: boolean = false) {
+    super(message, SDK_ERROR_TYPES.INITIALIZE, recoverable);
+    Object.setPrototypeOf(this, InitializeError.prototype);
   }
 }
