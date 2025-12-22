@@ -125,14 +125,3 @@ declare global {
 }
 
 window.EkycInstance = EkycInstance;
-
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      "savvy-sdk-comp": DetailedHTMLProps<
-        HTMLAttributes<HTMLElement>,
-        HTMLElement
-      >;
-    }
-  }
-}
