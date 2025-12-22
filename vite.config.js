@@ -2,9 +2,10 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 import { resolve } from "path";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [react(), cssInjectedByJsPlugin()],
+  plugins: [react(), cssInjectedByJsPlugin(), tailwindcss()],
   build: {
     lib: {
       // The entry point of your SDK
@@ -16,7 +17,7 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        manualChunks: undefined, // Ensures everything stays in one file
+        manualChunks: undefined,
       },
     },
     //  minify: "terser",
@@ -27,6 +28,11 @@ export default defineConfig({
     //   },
     //   mangle: true,
     // },
+  },
+  resolve: {
+    alias: {
+      "@": resolve(__dirname, "src"),
+    },
   },
   define: {
     "process.env.NODE_ENV": '"production"',

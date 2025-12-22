@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import RenderSDKContent from "./components/RenderSDKContent.tsx";
+import SDKControl from "./components/SDKControl.tsx";
 import "./SavvySDKComp.ts";
 import { DEFAULT_SDK_CONFIG } from "./utils/config.ts";
 import {
@@ -9,7 +9,6 @@ import {
 } from "./utils/errors.ts";
 import ReactDOM from "react-dom";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
-import Fallback from "./components/Fallback.tsx";
 
 class EkycInstance {
   private context: SDKContext;
@@ -49,9 +48,6 @@ class EkycInstance {
     if (!core?.API_KEY) {
       throw new InitializeError(SDK_ERROR_MESSAGES.MISSING_API_KEY);
     }
-    if (!core?.TARGET) {
-      throw new InitializeError(SDK_ERROR_MESSAGES.MISSING_API_KEY);
-    }
     this.context.config.core = core;
 
     // assign theme
@@ -81,33 +77,34 @@ class EkycInstance {
     this.renderByTarget(this.context.config.core.TARGET, err);
   }
 
+  private renderByTarget(target: string, err?: SDKError) {
+    console.log(" this.context.container ", this.context.container);
+    if (target === "REACT") {
+      ReactDOM.render(
+        <SDKControl context={this.context} err={err} />,
+        this.context.container
+      );
+    } else {
+      createRoot(this.context.container as any).render(
+        <SDKControl context={this.context} err={err} />
+      );
+    }
+  }
+
   //init sdk
   initialize(config: SDKConfig) {
     try {
       this.validatePresequites(config);
       this.initialized = true;
     } catch (err) {
+      console.log("@@err => ", err);
       this.errorProcessor(err as SDKError);
     }
   }
 
-  private renderByTarget(target: string, err?: SDKError) {
-    const Comp = err ? Fallback : RenderSDKContent;
-    if (target === "REACT") {
-      ReactDOM.render(
-        <Comp context={this.context} err={err} />,
-        this.context.container
-      );
-    } else if (target === "BROWSER") {
-      createRoot(this.context.container as any).render(
-        <Comp context={this.context} err={err} />
-      );
-    }
-  }
   //render ui ekyc
   render() {
     try {
-      throw new InitializeError(SDK_ERROR_MESSAGES.NOT_INITIALIZED);
       if (!this.initialized) {
         throw new InitializeError(SDK_ERROR_MESSAGES.NOT_INITIALIZED);
       }
@@ -120,10 +117,7 @@ class EkycInstance {
   //expose UI cemera processors
   //another sdk apis
 }
-// const Text = () => {
-//   return <p>text</p>;
-// };
-//assign class to client window
+
 declare global {
   interface Window {
     EkycInstance: typeof EkycInstance;

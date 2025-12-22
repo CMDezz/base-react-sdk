@@ -1,7 +1,7 @@
 export const DEFAULT_CORE_CONFIG: CoreConfig = {
   API_KEY: "",
   AUTH_TOKEN: null,
-  TARGET: "BROWSER",
+  TARGET: "REACT",
   TARGET_VERSION: "",
 };
 
