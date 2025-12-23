@@ -1,7 +1,7 @@
-type Props = {};
+// type Props = {};
 
-function Toast({}: Props) {
-  return <div>Toast</div>;
-}
+// function Toast({}: Props) {
+//   return <div>Toast</div>;
+// }
 
-export default Toast;
+// export default Toast;

@@ -1,19 +1,18 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import "./index.css";
-import App from "./App.tsx";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import App from './App.tsx';
 // import "../../src/index.tsx";
 const sdkUri = import.meta.env.VITE_SDK_URI;
-const env = import.meta.env;
+// const env = import.meta.env;
 
 async function loadSDK() {
-  console.log("env ", env);
   if (import.meta.env.DEV) {
-    await import("../../src/index.tsx");
+    await import('../../src/index.tsx');
     // await import(sdkUri);
   } else {
     await new Promise<void>((resolve, reject) => {
-      const script = document.createElement("script");
+      const script = document.createElement('script');
       script.src = sdkUri;
       script.async = true;
       script.onload = () => resolve();
@@ -28,13 +27,13 @@ async function BoostDemoApp() {
   try {
     await loadSDK();
 
-    createRoot(document.getElementById("root")!).render(
+    createRoot(document.getElementById('root')!).render(
       <StrictMode>
         <App />
       </StrictMode>
     );
   } catch (err) {
-    console.error("SDK boost failed", err);
+    console.error('SDK boost failed', err);
   }
 }
 

@@ -1,13 +1,13 @@
-import { createRoot } from "react-dom/client";
-import SDKControl from "./components/SDKControl.tsx";
-import "./SavvySDKComp.ts";
-import { DEFAULT_SDK_CONFIG } from "./utils/config.ts";
+import { createRoot } from 'react-dom/client';
+import SDKControl from './components/SDKControl.tsx';
+import './SavvySDKComp.ts';
+import { DEFAULT_SDK_CONFIG } from './utils/config.ts';
 import {
   InitializeError,
   SDK_ERROR_MESSAGES,
   SDKError,
-} from "./utils/errors.ts";
-import ReactDOM from "react-dom";
+} from './utils/errors.ts';
+import ReactDOM from 'react-dom';
 class EkycInstance {
   private context: SDKContext;
   private initialized: boolean;
@@ -37,7 +37,7 @@ class EkycInstance {
 
   private loadConfig(config: SDKConfig | undefined) {
     //check invalid
-    if (typeof config == "undefined" || !config) {
+    if (typeof config == 'undefined' || !config) {
       throw new InitializeError(SDK_ERROR_MESSAGES.INVALID_CONFIG);
     }
     const { core, theme, module } = config;
@@ -49,15 +49,15 @@ class EkycInstance {
     this.context.config.core = core;
 
     // assign theme
-    if (typeof theme?.colors == "object" && theme?.colors) {
+    if (typeof theme?.colors == 'object' && theme?.colors) {
       Object.keys(theme.colors).forEach((key) => {
-        this.context.config.theme.colors[key as keyof ThemeColors] =
+        this.context.config.theme!.colors[key as keyof ThemeColors] =
           theme.colors[key as keyof ThemeColors];
       });
     }
 
     // assign module
-    if (typeof module == "object" && module) {
+    if (typeof module == 'object' && module) {
       Object.keys(module).forEach((key) => {
         this.context.config.module[key as keyof ModuleConfig] =
           module[key as keyof ModuleConfig];
@@ -76,14 +76,17 @@ class EkycInstance {
   }
 
   private renderByTarget(target: string, err?: SDKError) {
-    console.log(" this.context.container ", this.context.container);
-    if (target === "REACT") {
+    console.log(' this.context.container ', this.context.container);
+    if (target === 'REACT') {
       ReactDOM.render(
         <SDKControl context={this.context} err={err} />,
         this.context.container
       );
     } else {
-      createRoot(this.context.container as any).render(
+      if (!this.context.container) {
+        throw new InitializeError(SDK_ERROR_MESSAGES.MISSING_CONTAINER);
+      }
+      createRoot(this.context.container).render(
         <SDKControl context={this.context} err={err} />
       );
     }
@@ -95,7 +98,7 @@ class EkycInstance {
       this.validatePresequites(config);
       this.initialized = true;
     } catch (err) {
-      console.log("@@err => ", err);
+      console.log('@@err => ', err);
       this.errorProcessor(err as SDKError);
     }
   }

@@ -1,7 +1,7 @@
-type Props = {};
+// type Props = {};
 
-function Modal({}: Props) {
-  return <div>Modal</div>;
-}
+// function Modal({}: Props) {
+//   return <div>Modal</div>;
+// }
 
-export default Modal;
+// export default Modal;

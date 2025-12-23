@@ -1,7 +1,7 @@
 class SavvySDKComp extends HTMLDivElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
   }
 
   connectedCallback() {
@@ -11,6 +11,6 @@ class SavvySDKComp extends HTMLDivElement {
   }
 }
 
-customElements.define("savvy-sdk-comp", SavvySDKComp, {
-  extends: "div",
+customElements.define('savvy-sdk-comp', SavvySDKComp, {
+  extends: 'div',
 });

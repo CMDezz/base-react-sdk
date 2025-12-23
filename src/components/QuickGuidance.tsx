@@ -1,7 +1,7 @@
-type Props = {};
+// type Props = {};
 
-function QuickGuidance({}: Props) {
-  return <div>QuickGuidance</div>;
-}
+// function QuickGuidance({}: Props) {
+//   return <div>QuickGuidance</div>;
+// }
 
-export default QuickGuidance;
+// export default QuickGuidance;

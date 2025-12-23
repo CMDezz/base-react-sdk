@@ -1,13 +1,18 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 const EkycSDK = () => {
   useEffect(() => {
-    const ekycInstance = new (window as any).EkycInstance();
+    const ekycInstance = new window.EkycInstance();
 
     ekycInstance.initialize({
       core: {
-        API_KEY: "123",
-        TARGET: "REACT",
+        API_KEY: '123',
+        TARGET: 'REACT',
+      },
+      module: {
+        FaceMatching: false,
+        Liveness: false,
+        OCRAndLiveness: false,
       },
     });
     ekycInstance.render();

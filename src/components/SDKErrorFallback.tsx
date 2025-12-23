@@ -1,19 +1,19 @@
-import "../index.css";
-import { AlertCircle, RefreshCcw, FileText } from "lucide-react";
+import '../index.css';
+import { AlertCircle, RefreshCcw, FileText } from 'lucide-react';
 import {
   Alert,
   AlertDescription,
   AlertTitle,
-} from "@shared/components/ui/alert";
-import { Button } from "@shared/components/ui/button";
+} from '@shared/components/ui/alert';
+import { Button } from '@shared/components/ui/button';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@shared/components/ui/card";
-import { SDKError } from "@sdk/utils/errors";
+} from '@shared/components/ui/card';
+import { SDKError } from '@sdk/utils/errors';
 
 type Props = {
   context: SDKContext;
@@ -24,7 +24,7 @@ type Props = {
 const SDKErrorFallback = ({ err, resetErrorBoundary }: Props) => {
   // Check if it's your custom error to access the 'recoverable' property
   const isRecoverable = err instanceof SDKError ? err.recoverable : false;
-  console.log("should be render UI");
+  console.log('should be render UI');
   return (
     <div className="flex items-center justify-center p-6 w-full min-h-[300px]">
       <Card className="w-full max-w-md border-destructive/50 shadow-lg">
@@ -38,15 +38,15 @@ const SDKErrorFallback = ({ err, resetErrorBoundary }: Props) => {
         <CardContent className="space-y-4">
           <Alert variant="destructive" className="bg-destructive/5">
             <AlertTitle className="font-semibold">
-              {err.name || "Error"}
+              {err.name || 'Error'}
             </AlertTitle>
             <AlertDescription className="text-sm opacity-90">
-              {err.message || "An unexpected error occurred within the SDK."}
+              {err.message || 'An unexpected error occurred within the SDK.'}
             </AlertDescription>
           </Alert>
 
           <div className="text-xs text-muted-foreground flex flex-col gap-1 italic">
-            <span>Recoverable: {isRecoverable ? "Yes" : "No"}</span>
+            <span>Recoverable: {isRecoverable ? 'Yes' : 'No'}</span>
           </div>
         </CardContent>
 

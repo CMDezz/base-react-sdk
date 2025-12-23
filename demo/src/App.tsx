@@ -1,12 +1,12 @@
-import EkycSDK from "./EkycSDK";
+// import EkycSDK from "./EkycSDK";
 
 function App() {
   // const [count, setCount] = useState(0);
 
   return (
-    <>
-      <EkycSDK />
-    </>
+    <div>
+      <p className="bold underline">this is demo page</p>
+    </div>
   );
 }
 

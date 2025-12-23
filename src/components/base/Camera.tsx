@@ -1,7 +1,11 @@
-type Props = {};
+// type Props = {
+//   name: string;
+// };
 
-function Camera({}: Props) {
-  return <div>Camera</div>;
-}
+// function Camera(props: Props) {
+//   console.log('props ', props);
 
-export default Camera;
+//   return <div>Camera</div>;
+// }
+
+// export default Camera;

@@ -1,6 +1,7 @@
-import Button from "@shared/components/base/Button";
+import Button from '@shared/components/base/Button';
 
 interface Props {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onCapture: (data: any) => void;
   onBack: () => void;
 }
@@ -9,8 +10,8 @@ function OCRBack({ onCapture, onBack }: Props) {
   const handleCapture = () => {
     // Mock capture data
     onCapture({
-      image: "back_img_base64",
-      info: "Back side info",
+      image: 'back_img_base64',
+      info: 'Back side info',
     });
   };
 
@@ -20,16 +21,16 @@ function OCRBack({ onCapture, onBack }: Props) {
       <div
         style={{
           height: 200,
-          background: "#eee",
-          margin: "1rem 0",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          background: '#eee',
+          margin: '1rem 0',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         Back Camera Preview
       </div>
-      <div style={{ display: "flex", gap: "10px" }}>
+      <div style={{ display: 'flex', gap: '10px' }}>
         <Button onClick={onBack}>Back</Button>
         <Button onClick={handleCapture}>Capture Back</Button>
       </div>

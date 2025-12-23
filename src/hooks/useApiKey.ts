@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
-import { InitializeError, SDK_ERROR_MESSAGES } from "../utils/errors";
-import { publicApi } from "@sdk/api";
+import { useEffect, useState } from 'react';
+import { InitializeError, SDK_ERROR_MESSAGES } from '../utils/errors';
+import { publicApi } from '@sdk/api';
 
 const useApiKey = ({ API_KEY }: { API_KEY: string }) => {
-  const [apiKey, setApiKey] = useState("");
+  const [apiKey, setApiKey] = useState('');
 
   const verifyApiKey = async (apiKey: string) => {
     const res = await publicApi.verifyApiKey(apiKey);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (res as any) {
-      setApiKey("");
+      setApiKey('');
       return res;
     } else {
       //

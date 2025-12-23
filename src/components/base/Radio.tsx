@@ -1,7 +1,7 @@
-type Props = {};
+// type Props = {};
 
-function Radio({}: Props) {
-  return <div>Radio</div>;
-}
+// function Radio({}: Props) {
+//   return <div>Radio</div>;
+// }
 
-export default Radio;
+// export default Radio;

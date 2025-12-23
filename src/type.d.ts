@@ -31,16 +31,16 @@ interface ThemeConfig {
 
 interface CoreConfig {
   API_KEY: string;
-  AUTH_TOKEN: string | null;
+  AUTH_TOKEN?: string;
   TARGET:
-    | "BROWSER"
-    | "REACT"
-    | "VUE"
-    | "ANGULAR"
-    | "LARAVEL"
-    | "WORDPRESS"
-    | "NEXTJS";
-  TARGET_VERSION: string;
+    | 'BROWSER'
+    | 'REACT'
+    | 'VUE'
+    | 'ANGULAR'
+    | 'LARAVEL'
+    | 'WORDPRESS'
+    | 'NEXTJS';
+  TARGET_VERSION?: string;
 }
 
 interface ModuleConfig {
@@ -49,7 +49,7 @@ interface ModuleConfig {
   FaceMatching: boolean;
 }
 interface SDKConfig {
-  theme: ThemeConfig;
+  theme?: ThemeConfig;
   core: CoreConfig;
   module: ModuleConfig;
 }

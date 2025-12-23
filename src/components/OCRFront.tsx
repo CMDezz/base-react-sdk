@@ -1,7 +1,7 @@
-type Props = {};
+// type Props = {};
 
-function OCRFront({}: Props) {
-  return <div>OCRFront</div>;
-}
+// function OCRFront({}: Props) {
+//   return <div>OCRFront</div>;
+// }
 
-export default OCRFront;
+// export default OCRFront;
