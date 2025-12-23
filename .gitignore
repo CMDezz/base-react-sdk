@@ -11,8 +11,8 @@ build/
 # .next/
 # **/.next/
 
-# .env -> ignore this later
-# .env.* -> ignore this later
+.env 
+.env.*
 !.env.example
 
 .vscode/*
