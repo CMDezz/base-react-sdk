@@ -8,13 +8,14 @@ import SDKErrorFallback from './SDKErrorFallback';
 import OCRBack from './OCRBack';
 import Result from './Result';
 import { Toaster } from 'sonner';
+import Face from './Face';
 
 interface Props {
   context: SDKContext;
   err?: SDKError;
 }
 
-type SDKStep = 'FRONT' | 'BACK' | 'RESULT';
+type SDKStep = 'FRONT' | 'BACK' | 'FACE' | 'RESULT';
 
 function SDKContent({ context, err }: Props) {
   const { API_KEY } = useApiKey({
@@ -38,7 +39,7 @@ function SDKContent({ context, err }: Props) {
 
   const handleBackCapture = (data: any) => {
     setScannedData((prev: any) => ({ ...prev, back: data }));
-    setStep('RESULT');
+    setStep('FACE');
   };
 
   const handleRestart = () => {
@@ -61,7 +62,7 @@ function SDKContent({ context, err }: Props) {
               justifyContent: 'center',
             }}
           >
-            Front Camera Previewz
+            Front Camera Previewzasdfasdasd
           </div>
           <Button onClick={handleFrontCapture}>Capture Front</Button>
         </div>
@@ -71,6 +72,16 @@ function SDKContent({ context, err }: Props) {
         <OCRBack
           onCapture={handleBackCapture}
           onBack={() => setStep('FRONT')}
+        />
+      )}
+
+      {step === 'FACE' && (
+        <Face
+          onCapture={(data) => {
+            setScannedData((prev: any) => ({ ...prev, face: data }));
+            setStep('RESULT');
+          }}
+          onBack={() => setStep('BACK')}
         />
       )}
 

@@ -5,7 +5,7 @@ function App() {
 
   return (
     <div>
-      <p className="bold underline">this is demo page</p>
+      <p className="bold underline">this is dteststst emo page</p>
       <EkycSDK />
     </div>
   );
