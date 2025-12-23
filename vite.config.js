@@ -59,9 +59,9 @@ export default defineConfig({
       },
   resolve: {
     alias: {
-      '@sdk': resolve(__dirname, 'src'),
-      '@demo': resolve(__dirname, 'demo'),
-      '@shared': resolve(__dirname, 'shared'),
+      '@sdk': resolve(__dirname, './src'),
+      '@demo': resolve(__dirname, './demo'),
+      '@shared': resolve(__dirname, './shared'),
     },
   },
 });

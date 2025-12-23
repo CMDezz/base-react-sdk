@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import Button from '@shared/components/base/Button';
 import useApiKey from '../hooks/useApiKey';
-import '../index.css';
 import { SDKError } from '@sdk/utils/errors';
 import SDKErrorFallback from './SDKErrorFallback';
 import OCRBack from './OCRBack';

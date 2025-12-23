@@ -1,8 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import './index.css';
 import App from './App.tsx';
-// import "../../src/index.tsx";
+import '@shared/styles/index.css';
+
 const sdkUri = import.meta.env.VITE_SDK_URI;
 // const env = import.meta.env;
 

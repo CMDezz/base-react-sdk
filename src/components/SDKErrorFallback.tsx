@@ -1,4 +1,3 @@
-import '../index.css';
 import { AlertCircle, RefreshCcw, FileText } from 'lucide-react';
 import {
   Alert,

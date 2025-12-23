@@ -1,6 +1,8 @@
-import SDKContent from "./SDKContent";
-import SDKErrorFallback from "./SDKErrorFallback";
-import { SDKError } from "@sdk/utils/errors";
+import '@shared/styles/index.css';
+
+import SDKContent from './SDKContent';
+import SDKErrorFallback from './SDKErrorFallback';
+import { SDKError } from '@sdk/utils/errors';
 
 interface Props {
   context: SDKContext;
