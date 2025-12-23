@@ -3,15 +3,15 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
   InternalAxiosRequestConfig,
-} from "axios";
-import { toast } from "sonner";
+} from 'axios';
+import { toast } from 'sonner';
 
 // Default configuration
 const config: AxiosRequestConfig = {
-  baseURL: "https://api.example.com",
+  baseURL: 'https://api.example.com',
   timeout: 10000,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 };
 
@@ -46,8 +46,10 @@ export class ApiService {
         const message =
           error.response?.data?.message ||
           error.message ||
-          "An unexpected error occurred";
-        toast.error(message);
+          'An unexpected error occurred';
+        toast.error(message, {
+          position: 'top-center',
+        });
 
         return Promise.reject(error);
       }

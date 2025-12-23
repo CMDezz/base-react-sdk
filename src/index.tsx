@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createRoot } from 'react-dom/client';
 import SDKControl from './components/SDKControl.tsx';
 import './SavvySDKComp.ts';
@@ -23,7 +24,8 @@ class EkycInstance {
 
   private checkSelector() {
     //check selector
-    const container = document.querySelector(`div[is="savvy-sdk-comp"]`);
+    // const container = document.querySelector(`div[is="savvy-sdk-comp"]`);
+    const container = document.querySelector(`#savvy-sdk-comp`);
     const rootApp = document.body.firstElementChild;
     if (container && rootApp) {
       // this.context.shadowRoot = container.shadowRoot;
@@ -77,19 +79,26 @@ class EkycInstance {
 
   private renderByTarget(target: string, err?: SDKError) {
     console.log(' this.context.container ', this.context.container);
-    if (target === 'REACT') {
-      ReactDOM.render(
-        <SDKControl context={this.context} err={err} />,
-        this.context.container
-      );
-    } else {
-      if (!this.context.container) {
-        throw new InitializeError(SDK_ERROR_MESSAGES.MISSING_CONTAINER);
-      }
-      createRoot(this.context.container).render(
-        <SDKControl context={this.context} err={err} />
-      );
+    // this.container
+    if (!this.context.container) {
+      throw new InitializeError(SDK_ERROR_MESSAGES.MISSING_CONTAINER);
     }
+    createRoot(this.context.container).render(
+      <SDKControl context={this.context} err={err} />
+    );
+    // if (target === 'REACT') {
+    //   ReactDOM.render(
+    //     <SDKControl context={this.context} err={err} />,
+    //     this.context.container
+    //   );
+    // } else {
+    //   if (!this.context.container) {
+    //     throw new InitializeError(SDK_ERROR_MESSAGES.MISSING_CONTAINER);
+    //   }
+    //   createRoot(this.context.container).render(
+    //     <SDKControl context={this.context} err={err} />
+    //   );
+    // }
   }
 
   //init sdk

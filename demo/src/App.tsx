@@ -1,8 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from '@shared/components/ui/button';
+import { MODULE_TYPE } from './constant';
+import { useState } from 'react';
+import { EkycDialog } from './EkycDialog';
 
 function App() {
-  const handleOption = (option: string) => {
-    console.log(`clicked on ${option}`);
+  const [open, setOpen] = useState(false);
+  const [moduleType, setModuleType] = useState<MODULE_TYPE | null>(null);
+
+  const handleClick = (moduleType: MODULE_TYPE) => {
+    setOpen(true);
+    setModuleType(moduleType);
   };
 
   return (
@@ -20,26 +28,34 @@ function App() {
         <div className="space-y-4">
           <Button
             className="w-full py-6 text-lg shadow-sm transition-all hover:scale-[1.02]"
-            onClick={() => handleOption('face matching')}
+            onClick={() => handleClick(MODULE_TYPE.FACE_MATCHING)}
           >
             Face Matching
           </Button>
           <Button
             className="w-full py-6 text-lg shadow-sm transition-all hover:scale-[1.02]"
             variant="outline"
-            onClick={() => handleOption('OCR + live ness')}
+            onClick={() => handleClick(MODULE_TYPE.OCR_LIVE_NESS)}
           >
             OCR + Liveness
           </Button>
           <Button
             className="w-full py-6 text-lg shadow-sm transition-all hover:scale-[1.02]"
             variant="secondary"
-            onClick={() => handleOption('live ness')}
+            onClick={() => handleClick(MODULE_TYPE.LIVE_NESS)}
           >
             Liveness
           </Button>
         </div>
       </div>
+      <EkycDialog
+        open={open}
+        moduleType={moduleType}
+        setOpen={(val) => {
+          setOpen(val);
+          if (!val) setModuleType(null); // Clear module type on close
+        }}
+      />
     </div>
   );
 }

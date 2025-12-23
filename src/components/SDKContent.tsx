@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Button from '@shared/components/base/Button';
 import useApiKey from '../hooks/useApiKey';
 import { SDKError } from '@sdk/utils/errors';
@@ -8,6 +8,7 @@ import OCRBack from './OCRBack';
 import Result from './Result';
 import { Toaster } from 'sonner';
 import Face from './Face';
+import { createPortal } from 'react-dom';
 
 interface Props {
   context: SDKContext;
@@ -46,8 +47,12 @@ function SDKContent({ context, err }: Props) {
     setStep('FRONT');
   };
 
+  const memorizedToast = useMemo(() => {
+    return createPortal(<Toaster position="top-center" />, document.body);
+  }, []);
+
   return (
-    <div className="sdk-container">
+    <div className="sdk-container min-w-75 min-h-75 ">
       {step === 'FRONT' && (
         <div className="sdk-view-front">
           <h3>Scan Front Side</h3>
@@ -87,7 +92,8 @@ function SDKContent({ context, err }: Props) {
       {step === 'RESULT' && (
         <Result data={scannedData} onRestart={handleRestart} />
       )}
-      <Toaster />
+      {/* <Toaster position="top-center" /> */}
+      {memorizedToast}
     </div>
   );
 }

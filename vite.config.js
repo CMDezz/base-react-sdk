@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
-import preact from '@preact/preset-vite';
+// import preact from '@preact/preset-vite';
+import react from '@vitejs/plugin-react';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -25,7 +26,8 @@ export default defineConfig({
     },
   },
   plugins: [
-    preact(),
+    // preact(),
+    react(),
     !isDemoBuild && cssInjectedByJsPlugin({ apply: 'build' }),
     tailwindcss(),
     eslint(),

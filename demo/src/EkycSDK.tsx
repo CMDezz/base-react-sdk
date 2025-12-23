@@ -1,22 +1,17 @@
 import { useEffect } from 'react';
 
-const EkycSDK = () => {
+type EkycSDKProps = {
+  config: SDKConfig;
+};
+const EkycSDK = (props: EkycSDKProps) => {
   useEffect(() => {
+    console.log('mounted with new con fig ', props.config);
     const ekycInstance = new window.EkycInstance();
 
-    ekycInstance.initialize({
-      core: {
-        API_KEY: '123',
-        TARGET: 'REACT',
-      },
-      module: {
-        FaceMatching: false,
-        Liveness: false,
-        OCRAndLiveness: false,
-      },
-    });
+    ekycInstance.initialize(props.config);
     ekycInstance.render();
-  }, []);
-  return <div is="savvy-sdk-comp"></div>;
+  }, [props.config]);
+  return <div id="savvy-sdk-comp"></div>;
+  // return <div is="savvy-sdk-comp"></div>;
 };
 export default EkycSDK;
