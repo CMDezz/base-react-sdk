@@ -16,11 +16,13 @@
     "dist"
   ],
   "scripts": {
-    "build": "vite build && tsc",
-    "serve-sdk": "npx serve -l 8080 dist",
-    "dev-react-16": "cd Test/React16 && [ -d node_modules ] || npm install && npx react-scripts start",
-    "dev-react-19": "cd Test/React19 && [ -d node_modules ] || npm install && npx react-scripts start",
-    "dev-vue": "cd Test/Vue && [ -d node_modules ] || npm install && npm run dev"
+    "build:sdk": "vite build",
+    "build:demo": "BUILD_DEMO=true vite build --mode uat",
+
+    "dev:serve-sdk": "npx serve -l 8080 dist/sdk",
+    "dev:serve-demo": "npx serve -l 3001 dist/demo",
+    
+    "dev:demo": "vite"
   },
   "peerDependencies": {
     "react": "^18.2.0",

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { InitializeError, SDK_ERROR_MESSAGES } from "../utils/errors";
-import { publicApi } from "@/api";
+import { publicApi } from "@sdk/api";
 
 const useApiKey = ({ API_KEY }: { API_KEY: string }) => {
   const [apiKey, setApiKey] = useState("");

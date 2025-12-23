@@ -8,8 +8,6 @@ import {
   SDKError,
 } from "./utils/errors.ts";
 import ReactDOM from "react-dom";
-import { DetailedHTMLProps, HTMLAttributes } from "react";
-
 class EkycInstance {
   private context: SDKContext;
   private initialized: boolean;

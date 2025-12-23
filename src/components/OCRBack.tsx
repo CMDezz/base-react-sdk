@@ -1,4 +1,4 @@
-import Button from "./base/BaseButton";
+import Button from "@shared/components/base/Button";
 
 interface Props {
   onCapture: (data: any) => void;

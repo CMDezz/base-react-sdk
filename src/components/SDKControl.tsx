@@ -1,6 +1,6 @@
 import SDKContent from "./SDKContent";
 import SDKErrorFallback from "./SDKErrorFallback";
-import { SDKError } from "@/utils/errors";
+import { SDKError } from "@sdk/utils/errors";
 
 interface Props {
   context: SDKContext;

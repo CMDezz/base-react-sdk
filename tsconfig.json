@@ -24,9 +24,12 @@
     //shadcn config
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@sdk/*": ["./src/*"],
+      "@demo/*": ["./demo/*"],
+      "@shared/*": ["./shared/*"],
+
+    },
   },
-  "include": ["src", "lib","vite.config.js"],
+  "include": ["src","demo","shared","vite.config.js","vite-env.d.ts"],
 
 }

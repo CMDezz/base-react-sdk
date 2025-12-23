@@ -1,15 +1,19 @@
 import "../index.css";
 import { AlertCircle, RefreshCcw, FileText } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@shared/components/ui/alert";
+import { Button } from "@shared/components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { SDKError } from "@/utils/errors";
+} from "@shared/components/ui/card";
+import { SDKError } from "@sdk/utils/errors";
 
 type Props = {
   context: SDKContext;
