@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createRoot } from 'react-dom/client';
+import { createRoot, Root } from 'react-dom/client';
 import SDKControl from './components/SDKControl.tsx';
 import './SavvySDKComp.ts';
 import { DEFAULT_SDK_CONFIG } from './utils/config.ts';
@@ -8,11 +8,13 @@ import {
   SDK_ERROR_MESSAGES,
   SDKError,
 } from './utils/errors.ts';
-import ReactDOM from 'react-dom';
+
+const rootMap = new WeakMap<Element, Root>();
+
 class EkycInstance {
   private context: SDKContext;
   private initialized: boolean;
-
+  private root: Root | null;
   constructor() {
     this.initialized = false;
     this.context = {
@@ -20,20 +22,31 @@ class EkycInstance {
       shadowContainer: null,
       container: null,
     };
+    this.root = null;
   }
 
   private checkSelector() {
     //check selector
-    // const container = document.querySelector(`div[is="savvy-sdk-comp"]`);
-    const container = document.querySelector(`#savvy-sdk-comp`);
-    const rootApp = document.body.firstElementChild;
-    if (container && rootApp) {
+    const container = document.querySelector(`div[is="savvy-sdk-comp"]`);
+    // const container = document.querySelector(`#savvy-sdk-comp`);
+    if (container) {
+      //Lưu lại giá trị root khi initialize
+      //Lần sau chỉ cần render
+      if (!this.root && !this.initialized) {
+        const root = rootMap.get(container);
+        if (root) {
+          rootMap.set(container, root);
+          this.root = root;
+        }
+      }
+
       // this.context.shadowRoot = container.shadowRoot;
       // const shadowRoot = container.attachShadow({ mode: "open" });
       this.context.container = container;
       this.context.shadowContainer = container.shadowRoot;
     } else {
       // handling error here
+      throw new InitializeError(SDK_ERROR_MESSAGES.MISSING_CONTAINER);
     }
   }
 
@@ -74,18 +87,30 @@ class EkycInstance {
 
   //handle error processors
   private errorProcessor(err: SDKError) {
-    this.renderByTarget(this.context.config.core.TARGET, err);
+    // this.renderUI(this.context.config.core.TARGET, err);
+    this.renderUI(err);
   }
 
-  private renderByTarget(target: string, err?: SDKError) {
+  private renderUI(err?: SDKError) {
     console.log(' this.context.container ', this.context.container);
     // this.container
     if (!this.context.container) {
       throw new InitializeError(SDK_ERROR_MESSAGES.MISSING_CONTAINER);
     }
-    createRoot(this.context.container).render(
-      <SDKControl context={this.context} err={err} />
-    );
+
+    //kiểm tra root mỗi lần rerender
+    if (!this.root) {
+      const root = createRoot(this.context.container);
+      rootMap.set(this.context.container, root);
+      this.root = root;
+    }
+
+    this.root.render(<SDKControl context={this.context} err={err} />);
+
+    //bỏ
+    // createRoot(this.context.container).render(
+    //   <SDKControl context={this.context} err={err} />
+    // );
     // if (target === 'REACT') {
     //   ReactDOM.render(
     //     <SDKControl context={this.context} err={err} />,
@@ -118,7 +143,7 @@ class EkycInstance {
       if (!this.initialized) {
         throw new InitializeError(SDK_ERROR_MESSAGES.NOT_INITIALIZED);
       }
-      this.renderByTarget(this.context.config.core.TARGET);
+      this.renderUI();
     } catch (err) {
       this.errorProcessor(err as SDKError);
     }

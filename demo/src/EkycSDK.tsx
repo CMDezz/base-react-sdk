@@ -11,7 +11,7 @@ const EkycSDK = (props: EkycSDKProps) => {
     ekycInstance.initialize(props.config);
     ekycInstance.render();
   }, [props.config]);
-  return <div id="savvy-sdk-comp"></div>;
-  // return <div is="savvy-sdk-comp"></div>;
+  // return <div id="savvy-sdk-comp"></div>;
+  return <div is="savvy-sdk-comp"></div>;
 };
 export default EkycSDK;

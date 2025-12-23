@@ -61,6 +61,9 @@ export default defineConfig({
       },
   resolve: {
     alias: {
+      // react: 'preact/compat',
+      // 'react-dom': 'preact/compat',
+      // 'react/jsx-runtime': 'preact/jsx-runtime',
       '@sdk': resolve(__dirname, './src'),
       '@demo': resolve(__dirname, './demo'),
       '@shared': resolve(__dirname, './shared'),

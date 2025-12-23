@@ -32,7 +32,7 @@ interface ThemeConfig {
 interface CoreConfig {
   API_KEY: string;
   AUTH_TOKEN?: string;
-  TARGET:
+  TARGET?:
     | 'BROWSER'
     | 'REACT'
     | 'VUE'
