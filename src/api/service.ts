@@ -4,7 +4,7 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios';
-import { toast } from 'sonner';
+// import { toast } from 'sonner';
 
 // Default configuration
 const config: AxiosRequestConfig = {
@@ -43,13 +43,13 @@ export class ApiService {
         return response.data;
       },
       (error) => {
-        const message =
-          error.response?.data?.message ||
-          error.message ||
-          'An unexpected error occurred';
-        toast.error(message, {
-          position: 'top-center',
-        });
+        // const message =
+        //   error.response?.data?.message ||
+        //   error.message ||
+        //   'An unexpected error occurred';
+        // toast.error(message, {
+        //   position: 'top-center',
+        // });
 
         return Promise.reject(error);
       }

@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createRoot, Root } from 'react-dom/client';
+// import { createRoot, Root } from 'react-dom/client';
+import { createRoot } from 'preact/compat/client';
+
 import SDKControl from './components/SDKControl.tsx';
 import './SavvySDKComp.ts';
 import { DEFAULT_SDK_CONFIG } from './utils/config.ts';
@@ -9,12 +11,12 @@ import {
   SDKError,
 } from './utils/errors.ts';
 
-const rootMap = new WeakMap<Element, Root>();
+const rootMap = new WeakMap<Element, PreactRoot>();
 
 class EkycInstance {
   private context: SDKContext;
   private initialized: boolean;
-  private root: Root | null;
+  private root: PreactRoot | null;
   constructor() {
     this.initialized = false;
     this.context = {

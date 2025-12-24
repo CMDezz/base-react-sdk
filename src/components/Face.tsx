@@ -1,7 +1,8 @@
-import { useRef, useEffect } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FaCamera } from 'react-icons/fa';
 import { webcamService } from '@sdk/service/WebcamService';
-import Button from '@shared/components/base/Button';
+// import button from '@shared/components/base/button';
+import { useEffect, useRef } from 'preact/hooks';
 
 function Face({
   onCapture,
@@ -45,20 +46,18 @@ function Face({
         </div>
       </div>
       <div className="mt-6 flex justify-center gap-3">
-        <Button
+        <button
+          className="btn"
           onClick={() => {
             webcamService.stopVideo();
             onBack();
           }}
         >
           Back
-        </Button>
-        <Button
-          className="bg-green-600 cursor-pointer"
-          onClick={handleFaceCapture}
-        >
+        </button>
+        <button className=" btn btn-success" onClick={handleFaceCapture}>
           <FaCamera size={24} color="white" /> Capture
-        </Button>
+        </button>
       </div>
     </>
   );

@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'preact/hooks';
 import { InitializeError, SDK_ERROR_MESSAGES } from '../utils/errors';
 import { publicApi } from '@sdk/api';
 

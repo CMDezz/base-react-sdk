@@ -1,7 +1,6 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import '@shared/styles/index.css';
+import { render } from 'preact/compat';
 
 const sdkUri = import.meta.env.VITE_SDK_URI;
 // const env = import.meta.env;
@@ -27,11 +26,7 @@ async function BoostDemoApp() {
   try {
     await loadSDK();
 
-    createRoot(document.getElementById('root')!).render(
-      <StrictMode>
-        <App />
-      </StrictMode>
-    );
+    render(<App />, document.getElementById('root')!);
   } catch (err) {
     console.error('SDK boost failed', err);
   }

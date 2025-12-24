@@ -1,4 +1,5 @@
-import Button from '@shared/components/base/Button';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+// import button from '@shared/components/base/button';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,8 +32,12 @@ function OCRBack({ onCapture, onBack }: Props) {
         Back Camera Preview
       </div>
       <div style={{ display: 'flex', gap: '10px' }}>
-        <Button onClick={onBack}>Back</Button>
-        <Button onClick={handleCapture}>Capture Back</Button>
+        <button className="btn" onClick={onBack}>
+          Back
+        </button>
+        <button className="btn" onClick={handleCapture}>
+          Capture Back
+        </button>
       </div>
     </div>
   );

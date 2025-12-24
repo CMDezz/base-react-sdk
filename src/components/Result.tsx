@@ -1,5 +1,3 @@
-import Button from '@shared/components/base/Button';
-
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any;
@@ -20,7 +18,9 @@ function Result({ data, onRestart }: Props) {
       >
         <pre>{JSON.stringify(data, null, 2)}</pre>
       </div>
-      <Button onClick={onRestart}>Done</Button>
+      <button className="btn" onClick={onRestart}>
+        Done
+      </button>
     </div>
   );
 }

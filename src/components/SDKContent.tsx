@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useMemo, useState } from 'react';
-import Button from '@shared/components/base/Button';
 import useApiKey from '../hooks/useApiKey';
 import { SDKError } from '@sdk/utils/errors';
 import SDKErrorFallback from './SDKErrorFallback';
 import OCRBack from './OCRBack';
 import Result from './Result';
-import { Toaster } from 'sonner';
 import Face from './Face';
-import { createPortal } from 'react-dom';
+import { useMemo, useState } from 'preact/hooks';
+import { createPortal } from 'preact/compat';
+import { Toaster } from 'sonner';
 
 interface Props {
   context: SDKContext;
@@ -66,9 +65,11 @@ function SDKContent({ context, err }: Props) {
               justifyContent: 'center',
             }}
           >
-            Front Camera Previewzasdfasdasd
+            <p>Front Camera Previewzasdfasdasd</p>
           </div>
-          <Button onClick={handleFrontCapture}>Capture Front</Button>
+          <button className="btn" onClick={handleFrontCapture}>
+            Capture Front
+          </button>
         </div>
       )}
 

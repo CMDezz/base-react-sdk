@@ -58,3 +58,8 @@ interface SDKContext {
   shadowContainer: ShadowRoot | null;
   container: Element | null;
 }
+
+interface PreactRoot {
+  render(children: preact.ComponentChild): void;
+  unmount(): void;
+}

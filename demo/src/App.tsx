@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Button } from '@shared/components/ui/button';
+// import { button } from '@shared/components/ui/button';
+import { useState } from 'preact/hooks';
 import { MODULE_TYPE } from './constant';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { EkycDialog } from './EkycDialog';
+import { Modal } from '@shared/components/Modal/BaseModal';
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -24,28 +26,42 @@ function App() {
             Select a verification method to proceed
           </p>
         </div>
+        <button className="btn" onClick={() => setOpen(true)}>
+          open modal
+        </button>
+
+        <Modal open={open} onClose={() => setOpen(false)} backdropClose>
+          {/* <Modal.Closebutton /> */}
+          <Modal.Heading>Welcome Back</Modal.Heading>
+          <Modal.Body>
+            This is a refactored modal using Preact and DaisyUI.
+          </Modal.Body>
+          {/* <Modal.Actions>
+            <button className="btn btn-primary">Save Changes</button>
+          </Modal.Actions> */}
+        </Modal>
 
         <div className="space-y-4">
-          <Button
+          {/* <button
             className="w-full py-6 text-lg shadow-sm transition-all hover:scale-[1.02]"
             onClick={() => handleClick(MODULE_TYPE.FACE_MATCHING)}
           >
             Face Matching
-          </Button>
-          <Button
+          </button>
+          <button
             className="w-full py-6 text-lg shadow-sm transition-all hover:scale-[1.02]"
             variant="outline"
             onClick={() => handleClick(MODULE_TYPE.OCR_LIVE_NESS)}
           >
             OCR + Liveness
-          </Button>
-          <Button
+          </button>
+          <button
             className="w-full py-6 text-lg shadow-sm transition-all hover:scale-[1.02]"
             variant="secondary"
             onClick={() => handleClick(MODULE_TYPE.LIVE_NESS)}
           >
             Liveness
-          </Button>
+          </button> */}
         </div>
       </div>
       <EkycDialog

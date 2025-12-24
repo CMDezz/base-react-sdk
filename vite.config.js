@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
-// import preact from '@preact/preset-vite';
-import react from '@vitejs/plugin-react';
+import preact from '@preact/preset-vite';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -26,8 +25,7 @@ export default defineConfig({
     },
   },
   plugins: [
-    // preact(),
-    react(),
+    preact(),
     !isDemoBuild && cssInjectedByJsPlugin({ apply: 'build' }),
     tailwindcss(),
     eslint(),
@@ -49,21 +47,13 @@ export default defineConfig({
           formats: ['umd'],
         },
         rollupOptions: {
-          // external: ['react', 'react-dom'],
           output: {
-            // globals: {
-            //   react: 'React',
-            //   'react-dom': 'ReactDOM',
-            // },
             manualChunks: undefined,
           },
         },
       },
   resolve: {
     alias: {
-      // react: 'preact/compat',
-      // 'react-dom': 'preact/compat',
-      // 'react/jsx-runtime': 'preact/jsx-runtime',
       '@sdk': resolve(__dirname, './src'),
       '@demo': resolve(__dirname, './demo'),
       '@shared': resolve(__dirname, './shared'),

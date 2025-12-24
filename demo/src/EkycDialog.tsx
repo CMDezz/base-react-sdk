@@ -1,18 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Button } from '@shared/components/ui/button';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  // DialogTrigger,
-} from '@shared/components/ui/dialog';
+// /* eslint-disable @typescript-eslint/no-unused-vars */
+// import { button } from '@shared/components/ui/button';
+// import {
+//   Dialog,
+//   DialogClose,
+//   DialogContent,
+//   DialogDescription,
+//   DialogFooter,
+//   DialogHeader,
+//   DialogTitle,
+//   // DialogTrigger,
+// } from '@shared/components/ui/dialog';
+import { useMemo } from 'preact/hooks';
 import { MODULE_TYPE } from './constant';
-import { useMemo } from 'react';
+// import { useMemo } from 'react';
 import EkycSDK from './EkycSDK';
+import { Modal } from '@shared/components/Modal/BaseModal';
 // import EkycSDK from './EkycSDK';
 
 type EkycDIalogProps = {
@@ -40,31 +43,21 @@ export function EkycDialog(props: EkycDIalogProps) {
     };
   }, [moduleType]);
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>EKYC Verify {moduleType}</DialogTitle>
-          <DialogDescription>
-            Please follow the instructions for{' '}
-            {moduleType?.toLowerCase().replace('_', ' ')}.
-          </DialogDescription>
-        </DialogHeader>
-
-        {/* Content Area */}
-        <div className="py-4">{<EkycSDK config={config} />}</div>
-
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleClose} // Added explicit handler
-            >
-              Close
-            </Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+    <div>
+      <Modal
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+      >
+        <Modal.Heading>
+          <p>EKYC Verif {moduleType}y</p>
+        </Modal.Heading>
+        <Modal.Body>
+          <p className={'text-lg'}> Please follow the instructions for </p>
+          <EkycSDK config={config} />
+        </Modal.Body>
+      </Modal>
+    </div>
   );
 }
