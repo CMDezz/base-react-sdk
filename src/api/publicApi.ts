@@ -42,14 +42,14 @@ const publicApi = {
   },
 
   sessionLiveness: async (
-    docSide: DOC_SIDE,
+    // docSide: DOC_SIDE,
     sessionId: string,
     images: File[]
   ): PromiseApiResponse<ProcessResponse> => {
     const url = `/sessions/${sessionId}/liveness`;
 
     const formData = new FormData();
-    formData.append('docSide', docSide + '');
+    // formData.append('docSide', docSide + '');
     images.forEach((image) => {
       formData.append('image', image); // File
     });

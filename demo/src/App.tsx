@@ -1,10 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// import { button } from '@shared/components/ui/button';
+import { ShieldCheck, ScanFace, CreditCard, ChevronRight } from 'lucide-react';
 import { useState } from 'preact/hooks';
 import { MODULE_TYPE } from './constant';
-// import { useState } from 'react';
 import { EkycDialog } from './EkycDialog';
-import { Modal } from '@shared/components/Modal/BaseModal';
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -16,44 +13,103 @@ function App() {
   };
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
-      <div className="w-full max-w-md space-y-8 rounded-2xl bg-white p-8 shadow-xl ring-1 ring-gray-900/5">
-        <div className="space-y-2 text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-            Demo Options
+    <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-base-200 p-6">
+      {/* Decorative Background - Using 'bg-primary' with opacity */}
+      <div className="absolute inset-0 z-0 opacity-10">
+        <div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-primary blur-3xl" />
+        <div className="absolute -bottom-24 -right-24 h-96 w-96 rounded-full bg-secondary blur-3xl" />
+      </div>
+
+      <div className="relative z-10 w-full max-w-lg space-y-8">
+        {/* Heading Section */}
+        <div className="space-y-3 text-center">
+          <div className="badge badge-primary badge-outline font-semibold">
+            Identity Ekyc
+          </div>
+          <h1 className="text-4xl font-extrabold tracking-tight text-base-content">
+            Verify Identity
           </h1>
-          <p className="text-sm text-gray-500">
-            Select a verification method to proceed
+          <p className="mx-auto max-w-xs text-base text-base-content/70">
+            Choose a specialized module to begin your automated verification
+            flow.
           </p>
         </div>
 
-        <div className="space-y-4">
+        {/* Options Grid */}
+        <div className="grid gap-4">
+          {/* Card: OCR + Liveness (Secondary Theme) */}
           <button
-            className="btn btn-primary w-full py-6 text-lg shadow-sm transition-all hover:scale-[1.02]"
-            onClick={() => handleClick(MODULE_TYPE.FACE_MATCHING)}
-          >
-            Face Matching
-          </button>
-          <button
-            className="btn btn-secondary btn-outline w-full py-6 text-lg shadow-sm transition-all hover:scale-[1.02]"
             onClick={() => handleClick(MODULE_TYPE.OCR_LIVE_NESS)}
+            className="group flex items-center gap-4 rounded-box border border-base-300 bg-base-100 p-5 text-left transition-all hover:border-secondary hover:shadow-lg active:scale-[0.98]"
           >
-            OCR + Liveness
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-secondary/10 text-secondary group-hover:bg-secondary group-hover:text-secondary-content transition-colors">
+              <CreditCard size={24} />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-bold text-base-content">OCR + Liveness</h3>
+              <p className="text-sm text-base-content/60">
+                Extract data and detect spoofing
+              </p>
+            </div>
+            <ChevronRight
+              className="text-base-content/20 group-hover:text-secondary"
+              size={20}
+            />
           </button>
+
+          {/* Card: Liveness (Accent Theme) */}
           <button
-            className="btn btn-neutral btn-outline w-full py-6 text-lg shadow-sm transition-all hover:scale-[1.02]"
             onClick={() => handleClick(MODULE_TYPE.LIVE_NESS)}
+            className="group flex items-center gap-4 rounded-box border border-base-300 bg-base-100 p-5 text-left transition-all hover:border-accent hover:shadow-lg active:scale-[0.98]"
           >
-            Liveness
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent group-hover:bg-accent group-hover:text-accent-content transition-colors">
+              <ShieldCheck size={24} />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-bold text-base-content">Liveness Only</h3>
+              <p className="text-sm text-base-content/60">
+                Fast 3D biometric check
+              </p>
+            </div>
+            <ChevronRight
+              className="text-base-content/20 group-hover:text-accent"
+              size={20}
+            />
+          </button>
+
+          {/* Card: Face Matching (Primary Theme) */}
+          <button
+            onClick={() => handleClick(MODULE_TYPE.FACE_MATCHING)}
+            className="group flex items-center gap-4 rounded-box border border-base-300 bg-base-100 p-5 text-left transition-all hover:border-primary hover:shadow-lg active:scale-[0.98]"
+          >
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-content transition-colors">
+              <ScanFace size={24} />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-bold text-base-content">Face Matching</h3>
+              <p className="text-sm text-base-content/60">
+                Compare selfie with ID document
+              </p>
+            </div>
+            <ChevronRight
+              className="text-base-content/20 group-hover:text-primary"
+              size={20}
+            />
           </button>
         </div>
+
+        {/* Footer info */}
+        <p className="text-center text-xs text-base-content/40">
+          Secure, encrypted, and GDPR compliant.
+        </p>
       </div>
+
       <EkycDialog
         open={open}
         moduleType={moduleType}
         setOpen={(val) => {
           setOpen(val);
-          if (!val) setModuleType(null); // Clear module type on close
+          if (!val) setModuleType(null);
         }}
       />
     </div>

@@ -94,7 +94,6 @@ class EkycInstance {
   }
 
   private renderUI(err?: SDKError) {
-    console.log(' this.context.container ', this.context.container);
     // this.container
     if (!this.context.container) {
       throw new InitializeError(SDK_ERROR_MESSAGES.MISSING_CONTAINER);
@@ -134,7 +133,6 @@ class EkycInstance {
       this.validatePresequites(config);
       this.initialized = true;
     } catch (err) {
-      console.log('@@err => ', err);
       this.errorProcessor(err as SDKError);
     }
   }
