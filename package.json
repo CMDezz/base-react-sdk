@@ -18,8 +18,10 @@
   "scripts": {
     "lint:sdk": "eslint src",
     "lint:demo": "eslint demo",
-    "build:sdk": "npm run lint:sdk && vite build",
+    "build:sdk": "npm run lint:sdk && vite build --mode uat",
     "build:demo": "npm run lint:demo && BUILD_DEMO=true vite build --mode uat",
+        "build:sdk:prod": "npm run lint:sdk && vite build --mode production",
+    "build:demo:prod": "npm run lint:demo && BUILD_DEMO=true vite build --mode production",
     "dev:serve-sdk": "npx serve -l 8080 dist/sdk",
     "dev:serve-demo": "npx serve -l 3001 dist/demo",
     "dev:demo": "vite"

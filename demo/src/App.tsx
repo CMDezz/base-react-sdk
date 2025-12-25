@@ -26,9 +26,6 @@ function App() {
             Select a verification method to proceed
           </p>
         </div>
-        <button className="btn" onClick={() => setOpen(true)}>
-          open modal
-        </button>
 
         <div className="space-y-4">
           <button

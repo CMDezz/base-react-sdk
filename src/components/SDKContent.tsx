@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import useApiKey from '../hooks/useApiKey';
 import { SDKError } from '@sdk/utils/errors';
 import SDKErrorFallback from './SDKErrorFallback';
 import { Toaster } from 'sonner';
@@ -7,6 +6,11 @@ import { createPortal, useMemo } from 'preact/compat';
 import FaceMatching from './modules/FaceMatching';
 import Liveness from './modules/Liveness';
 import OCRAndLiveness from './modules/OCRAndLiveness';
+import useAuthToken from '@sdk/hooks/useAuthToken';
+// import useSession from '@sdk/hooks/useSession';
+// import useOcrRequest from '@sdk/hooks/useOcrRequest';
+// import useLivenessRequest from '@sdk/hooks/useLivenessRequest';
+// import { VERIFY_MODE } from '@sdk/utils/constant';
 
 interface Props {
   context: SDKContext;
@@ -14,10 +18,16 @@ interface Props {
 }
 
 function SDKContent({ context, err }: Props) {
-  const { API_KEY } = useApiKey({
-    API_KEY: context.config.core.API_KEY,
-  });
-  console.log('API_KEY ', API_KEY);
+  useAuthToken(context.config.core.API_KEY);
+  // const { sessionId } = useSession(VERIFY_MODE.LIVENESS);
+  // console.log('sessionId ', sessionId);
+  // const { loading, requestOcr } = useOcrRequest();
+  // const {
+  //   // loading,
+  //   requestLiveness,
+  // } = useLivenessRequest();
+
+  // console.log('--loading ', loading);
 
   if (err) {
     //handle error

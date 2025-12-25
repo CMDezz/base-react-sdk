@@ -44,7 +44,7 @@ export default defineConfig({
           entry: resolve(__dirname, 'src/index.tsx'),
           name: 'SavvyEkycSDK',
           fileName: (format) => `savvy-ekyc-sdk.${format}.js`,
-          formats: ['umd'],
+          formats: ['es'],
         },
         rollupOptions: {
           output: {
