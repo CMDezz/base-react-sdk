@@ -51,7 +51,6 @@ export function EkycDialog(props: EkycDIalogProps) {
           <p>EKYC Verif {moduleType}y</p>
         </Modal.Heading>
         <Modal.Body>
-          <p className={'text-lg'}> Please follow the instructions for </p>
           <EkycSDK config={config} />
         </Modal.Body>
       </Modal>

@@ -4,9 +4,11 @@ import { SDKError } from '@sdk/utils/errors';
 import SDKErrorFallback from './SDKErrorFallback';
 import { Toaster } from 'sonner';
 import { createPortal, useMemo } from 'preact/compat';
+import { useState } from 'preact/hooks';
 import useAuthToken from '@sdk/hooks/useAuthToken';
 import SDKStepControl from './SDKStepControl';
 import useSession from '@sdk/hooks/useSession';
+import Consent from './Consent';
 // import LoadingContainer from '@shared/components/Loading/LoadingContainer';
 
 interface Props {
@@ -44,14 +46,26 @@ function SDKContent({ context, err }: Props) {
     context.config.module
   );
 
+  const [consentAccepted, setConsentAccepted] = useState(false);
+
   const memorizedToast = useMemo(() => {
     return createPortal(<Toaster position="top-center" />, document.body);
   }, []);
+
+  const handleConsentAccept = () => {
+    setConsentAccepted(true);
+  };
+
+  const handleConsentDecline = () => {
+    window.location.reload();
+  };
 
   return (
     <div className="sdk-container min-w-75 min-h-75">
       {sessionLoading || tokenLoading ? (
         <ContainerSkeleton />
+      ) : !consentAccepted ? (
+        <Consent onAccept={handleConsentAccept} onDecline={handleConsentDecline} />
       ) : (
         <SDKStepControl context={context} sessionId={sessionId} />
       )}
