@@ -6,6 +6,7 @@ const sdkUri = import.meta.env.VITE_SDK_URI;
 // const env = import.meta.env;
 
 async function loadSDK() {
+  console.log('import.meta.env ', import.meta.env);
   if (import.meta.env.DEV) {
     await import('../../src/index.tsx');
     // await import(sdkUri);

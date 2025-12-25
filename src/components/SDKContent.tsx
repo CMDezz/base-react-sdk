@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import useApiKey from '../hooks/useApiKey';
 import { SDKError } from '@sdk/utils/errors';
 import SDKErrorFallback from './SDKErrorFallback';
 import OCRBack from './OCRBack';
@@ -8,6 +7,11 @@ import Face from './Face';
 import { useMemo, useState } from 'preact/hooks';
 import { createPortal } from 'preact/compat';
 import { Toaster } from 'sonner';
+import useAuthToken from '@sdk/hooks/useAuthToken';
+import useSession from '@sdk/hooks/useSession';
+import { DOC_SIDE, VERIFY_MODE } from '@sdk/utils/constant';
+import useOcrRequest from '@sdk/hooks/useOcrRequest';
+import useLivenessRequest from '@sdk/hooks/useLivenessRequest';
 
 interface Props {
   context: SDKContext;
@@ -17,11 +21,16 @@ interface Props {
 type SDKStep = 'FRONT' | 'BACK' | 'FACE' | 'RESULT';
 
 function SDKContent({ context, err }: Props) {
-  const { API_KEY } = useApiKey({
-    API_KEY: context.config.core.API_KEY,
-  });
-  console.log('API_KEY ', API_KEY);
+  useAuthToken(context.config.core.API_KEY);
+  const { sessionId } = useSession(VERIFY_MODE.LIVENESS);
+  console.log('sessionId ', sessionId);
+  const { loading, requestOcr } = useOcrRequest();
+  const {
+    // loading,
+    requestLiveness,
+  } = useLivenessRequest();
 
+  console.log('--loading ', loading);
   const [step, setStep] = useState<SDKStep>('FRONT');
   const [scannedData, setScannedData] = useState<any>({});
 
@@ -52,6 +61,38 @@ function SDKContent({ context, err }: Props) {
 
   return (
     <div className="sdk-container min-w-75 min-h-75 ">
+      <button
+        className="btn"
+        onClick={() => {
+          //test
+          requestOcr(
+            '123',
+            DOC_SIDE.BACK,
+            new File([], 'test.png', {
+              type: 'image/png',
+            })
+          );
+        }}
+      >
+        Mock Ocr
+      </button>
+      <button
+        className="btn"
+        onClick={() => {
+          //test
+          requestLiveness(
+            '123',
+            DOC_SIDE.BACK,
+            [1, 2, 3, 4, 5].map((i) => {
+              return new File([], `test-${i}.png`, {
+                type: 'image/png',
+              });
+            })
+          );
+        }}
+      >
+        Mock Liveness
+      </button>
       {step === 'FRONT' && (
         <div className="sdk-view-front">
           <h3>Scan Front Side</h3>
