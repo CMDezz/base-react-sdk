@@ -54,13 +54,8 @@ const OCRAndLiveness = (props: Props) => {
   const { requestOcr } = useOcrRequest();
   const { requestLiveness } = useLivenessRequest();
 
-  const handleFrontCapture = () => {
-    // Simulate front capture logic
-    setScannedData((prev: ScannedData) => ({
-      ...prev,
-      front: 'Front Image Data',
-    }));
-    // setStep('BACK');
+  const handleFrontCapture = (data: string) => {
+    setScannedData((prev: ScannedData) => ({ ...prev, front: data }));
 
     nextStep(() => {
       const emptyImage = new File([], 'test', {});
