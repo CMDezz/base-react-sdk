@@ -18,7 +18,20 @@ function Result({ data, onRestart }: Props) {
           margin: '1rem 0',
         }}
       >
-        <pre>{JSON.stringify(data, null, 2)}</pre>
+        <pre
+          style={{
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+            overflowWrap: 'break-word',
+            maxHeight: 400,
+            overflowY: 'auto',
+          }}
+        >
+          {data.face &&
+            data.face.images.map((face: string, i: number) => {
+              return <img src={face} key={i} />;
+            })}
+        </pre>
       </div>
       <Button onClick={onRestart}>Done</Button>
     </div>

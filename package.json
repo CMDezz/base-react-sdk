@@ -47,6 +47,7 @@
     "vite-plugin-eslint": "^1.8.1"
   },
   "dependencies": {
+    "@mediapipe/tasks-vision": "^0.10.22-rc.20250304",
     "@preact/preset-vite": "^2.10.2",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-label": "^2.1.8",

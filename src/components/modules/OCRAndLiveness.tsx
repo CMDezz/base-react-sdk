@@ -49,7 +49,8 @@ const OCRAndLiveness = () => {
 
       {step === 'FACE' && (
         <Face
-          onCapture={() => {
+          onCapture={(image) => {
+            setScannedData((prev: ScannedData) => ({ ...prev, 'face': image}));
             setStep('RESULT');
           }}
           onBack={() => setStep('BACK')}

@@ -28,7 +28,7 @@ function OCRBack({ onCapture, onBack }: Props) {
         className="m-auto w-full bg-gray-400 aspect-video"
         style={{ margin: '1rem 0' }}
       >
-        <VideoStream videoRefProps={videoRef.current!} />
+        <VideoStream videoRef={videoRef} />
       </div>
       <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
         <Button

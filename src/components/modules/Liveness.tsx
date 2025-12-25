@@ -22,8 +22,8 @@ const Liveness = () => {
     setStep('FACE');
   };
 
-  const handleFaceCapture = () => {
-    setScannedData((prev: ScannedData) => ({ ...prev, front: 'Front Image Data' }));
+  const handleFaceCapture = (image : string) => {
+    setScannedData((prev: ScannedData) => ({ ...prev, 'face': image}));
     setStep('RESULT');
   };
 

@@ -1,32 +1,39 @@
 import { webcamService } from '@sdk/service/WebcamService';
-import { useEffect, useRef } from 'react';
+import { RefObject, useEffect } from 'react';
 
-const VideoStream = ({
-  videoRefProps,
-  className,
-}: {
-  videoRefProps: HTMLVideoElement;
+type VideoStreamProps = {
+  videoRef: RefObject<HTMLVideoElement>;
   className?: string;
-}) => {
-  const videoRef = useRef<HTMLVideoElement>(videoRefProps);
+};
 
+const VideoStream = ({ videoRef, className }: VideoStreamProps) => {
   useEffect(() => {
-    if (videoRef.current) {
-      webcamService.stopVideo();
-    }
+    const element = videoRef && videoRef.current;
+    if (!element) return;
+
     const startWebcam = async () => {
-      await webcamService.startVideo(videoRef.current);
+      await webcamService.startVideo(element);
     };
+
     startWebcam();
-  }, []);
+
+    return () => {
+      webcamService.stopVideo();
+    };
+  }, [videoRef]);
 
   return (
     <video
       ref={videoRef}
       autoPlay
-      className={`w-full h-full object-cover ${className}`}
+      className={`w-full h-full object-cover ${className || ''}`}
       playsInline
       muted
+      style={{
+        transform: 'scaleX(-1)',
+        WebkitTransform: 'scaleX(-1)',
+        MozTransform: 'scaleX(-1)',
+      }}
     />
   );
 };
