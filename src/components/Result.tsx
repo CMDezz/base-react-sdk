@@ -16,20 +16,35 @@ function Result({ data, onRestart }: Props) {
           margin: '1rem 0',
         }}
       >
-        <pre
+        <div className='flex flex-col gap-4'
           style={{
-            whiteSpace: 'pre-wrap',
-            wordBreak: 'break-word',
-            overflowWrap: 'break-word',
-            maxHeight: 400,
+            height: 400,
             overflowY: 'auto',
           }}
         >
-          {data.face &&
-            data.face.images.map((face: string, i: number) => {
-              return <img src={face} key={i} />;
-            })}
-        </pre>
+          {data.front && (
+            <>
+              <h3>Front OCR</h3>
+              <img class="w-1/3" src={data.front} />
+            </>
+          )}
+          {data.back && (
+            <>
+              <h3>Back OCR</h3>
+              <img class="w-1/3" src={data.back} />
+            </>
+          )}
+          {data.face && (
+            <>
+              <h3>Face</h3>
+              <div className="flex gap-4 w-full flex-wrap">
+                {data.face.images.map((face: string, i: number) => {
+                  return <img class="w-1/3" src={face} key={i} />;
+                })}
+              </div>
+            </>
+          )}
+        </div>
       </div>
       <button className="btn" onClick={onRestart}>
         Done

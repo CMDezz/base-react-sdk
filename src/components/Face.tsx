@@ -139,9 +139,10 @@ function Face({
             // size={'lg'}
             onClick={() => {
               webcamService.stopVideo();
+              onBack();
             }}
           >
-            <FaArrowLeft size={24} color="white" />
+            <FaArrowLeft size={18} />
             Back
           </button>
         )}

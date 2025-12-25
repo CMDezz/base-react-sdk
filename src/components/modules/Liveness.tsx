@@ -1,6 +1,6 @@
-import { useState } from "react";
 import Result from "../Result";
 import Face from "../Face";
+import { useState } from "preact/hooks";
 
 interface BackCaptureData {
   image: string;
