@@ -25,7 +25,6 @@ async function loadSDK() {
 async function BoostDemoApp() {
   try {
     await loadSDK();
-
     render(<App />, document.getElementById('root')!);
   } catch (err) {
     console.error('SDK boost failed', err);

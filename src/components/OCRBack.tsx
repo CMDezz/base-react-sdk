@@ -1,5 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// import button from '@shared/components/base/button';
+import { useRef } from 'preact/hooks';
+import VideoStream from './base/VideoStream';
+import { FaArrowLeft, FaCamera } from 'react-icons/fa';
+// import { Input } from '@shared/components/ui/input';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -8,6 +10,8 @@ interface Props {
 }
 
 function OCRBack({ onCapture, onBack }: Props) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   const handleCapture = () => {
     // Mock capture data
     onCapture({
@@ -20,23 +24,18 @@ function OCRBack({ onCapture, onBack }: Props) {
     <div className="sdk-view-back">
       <h3>Scan Back Side</h3>
       <div
-        style={{
-          height: 200,
-          background: '#eee',
-          margin: '1rem 0',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
+        className="m-auto w-full bg-gray-400 aspect-video"
+        style={{ margin: '1rem 0' }}
       >
-        Back Camera Preview
+        <VideoStream videoRef={videoRef} />
       </div>
-      <div style={{ display: 'flex', gap: '10px' }}>
-        <button className="btn" onClick={onBack}>
+      <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+        <button className={'btn btn-lg'} onClick={onBack}>
+          <FaArrowLeft size={24} color="white" />
           Back
         </button>
-        <button className="btn" onClick={handleCapture}>
-          Capture Back
+        <button onClick={handleCapture} className={'btn btn-lg'}>
+          <FaCamera size={24} color="white" /> Capture
         </button>
       </div>
     </div>

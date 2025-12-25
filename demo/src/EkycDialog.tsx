@@ -16,6 +16,7 @@ import { MODULE_TYPE } from './constant';
 // import { useMemo } from 'react';
 import EkycSDK from './EkycSDK';
 import { Modal } from '@shared/components/Modal/BaseModal';
+import { webcamService } from '@sdk/service/WebcamService';
 // import EkycSDK from './EkycSDK';
 
 type EkycDIalogProps = {
@@ -27,7 +28,10 @@ export function EkycDialog(props: EkycDIalogProps) {
   const { moduleType, open, setOpen } = props;
 
   // Use a simple boolean check for visibility
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    webcamService.stopVideo();
+  };
 
   const config = useMemo<SDKConfig>(() => {
     return {
