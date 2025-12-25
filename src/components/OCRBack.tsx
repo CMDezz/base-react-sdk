@@ -1,17 +1,21 @@
 import { useEffect, useRef } from 'preact/hooks';
 import VideoStream from './base/VideoStream';
-import { FaArrowLeft, FaCamera } from 'react-icons/fa';
+import { FaCamera } from 'react-icons/fa';
 // import { Input } from '@shared/components/ui/input';
 
 type RefObject<T> = { current: T | null };
 
 interface Props {
   onCapture: (image: string) => void;
-  onBack: () => void;
+  // onBack: () => void;
   drawTrackingFrame: (canvasRef: RefObject<HTMLCanvasElement>) => void;
 }
 
-const OCRBack = ({ onCapture, onBack, drawTrackingFrame }: Props) => {
+const OCRBack = ({
+  onCapture,
+  //  onBack,
+  drawTrackingFrame,
+}: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -63,10 +67,10 @@ const OCRBack = ({ onCapture, onBack, drawTrackingFrame }: Props) => {
         />
       </div>
       <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-        <button className={'btn btn-lg'} onClick={onBack}>
+        {/* <button className={'btn btn-lg'} onClick={onBack}>
           <FaArrowLeft size={18} />
           Back
-        </button>
+        </button> */}
         <button onClick={handleCapture} className="btn btn-lg btn-primary">
           <FaCamera size={18} color="white" /> Capture
         </button>

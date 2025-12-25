@@ -5,7 +5,6 @@ type EkycSDKProps = {
 };
 const EkycSDK = (props: EkycSDKProps) => {
   useEffect(() => {
-    console.log('mounted with new con fig ', props.config);
     const ekycInstance = new window.EkycInstance();
 
     ekycInstance.initialize(props.config);

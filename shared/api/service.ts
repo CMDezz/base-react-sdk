@@ -9,7 +9,7 @@ import { enableAxiosMock } from './mockService';
 
 // Default configuration
 const config: AxiosRequestConfig = {
-  baseURL: 'https://api.example.com',
+  baseURL: import.meta.env.VITE_API_URI,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',

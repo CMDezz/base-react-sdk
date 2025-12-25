@@ -4,7 +4,11 @@ interface Props {
   onRestart: () => void;
 }
 
-function Result({ data, onRestart }: Props) {
+function Result({
+  data,
+
+  // onRestart
+}: Props) {
   return (
     <div className="sdk-view-result">
       <h3>Scan Results</h3>
@@ -16,7 +20,8 @@ function Result({ data, onRestart }: Props) {
           margin: '1rem 0',
         }}
       >
-        <div className='flex flex-col gap-4'
+        <div
+          className="flex flex-col gap-4"
           style={{
             height: 400,
             overflowY: 'auto',
@@ -46,9 +51,9 @@ function Result({ data, onRestart }: Props) {
           )}
         </div>
       </div>
-      <button className="btn" onClick={onRestart}>
+      {/* <button className="btn" onClick={onRestart}>
         Done
-      </button>
+      </button> */}
     </div>
   );
 }

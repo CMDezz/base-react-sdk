@@ -1,10 +1,10 @@
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { mock } from '@shared/api/mockService';
 import { DOC_SIDE, VERIFY_MODE } from '@sdk/utils/constant';
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // POST /auth/token
 mock('POST', '/auth/token', async (config: AxiosRequestConfig) => {
-  console.log('config ', config);
   const body = JSON.parse(config.data) as {
     API_KEY?: string;
   };
@@ -50,12 +50,12 @@ mock('POST', '/auth/token', async (config: AxiosRequestConfig) => {
 
 // POST /sessions
 mock('POST', '/sessions', async (config: AxiosRequestConfig) => {
-  console.log('config ', config);
+  await sleep(2000);
   const body = JSON.parse(config.data) as {
     mode?: VERIFY_MODE;
   };
 
-  if (!body?.mode) {
+  if (body?.mode == undefined) {
     return {
       status: 400,
       statusText: 'Bad Request',
@@ -92,7 +92,8 @@ mock('POST', '/sessions', async (config: AxiosRequestConfig) => {
     data: {
       success: true,
       data: {
-        sessionId: `sess_${Math.random().toString(36).slice(2)}`,
+        // sessionId: `sess_${Math.random().toString(36).slice(2)}`,
+        sessionId: 'sess_y1k2298nsil',
         mode: body.mode,
         accessToken: 'mock-session-token-xyz',
         tokenType: 'Bearer',
@@ -103,7 +104,7 @@ mock('POST', '/sessions', async (config: AxiosRequestConfig) => {
 });
 
 // POST /sessions/:sessionId/documents
-const mock_session_id = '123';
+const mock_session_id = 'sess_y1k2298nsil';
 mock(
   'POST',
   `/sessions/${mock_session_id}/documents`,
@@ -238,18 +239,6 @@ mock(
     const images = formData.getAll('image');
 
     // ---- validation ----
-    if (!docSide) {
-      return {
-        status: 400,
-        statusText: 'Bad Request',
-        headers: {},
-        config,
-        data: {
-          success: false,
-          message: 'docSide is required',
-        },
-      } as AxiosResponse;
-    }
 
     if (!Object.values(DOC_SIDE).includes(Number(docSide))) {
       return {

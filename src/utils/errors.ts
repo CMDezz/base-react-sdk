@@ -4,6 +4,7 @@ export enum SDK_ERROR_TYPES {
   PERMISSION = 'PERMISSION',
   NETWORKING = 'NETWORKING',
   UNKNOWN = 'UNKNOWN',
+  AUTHENTICATION = 'AUTHENTICATION',
 }
 export enum SDK_ERROR_MESSAGES {
   INVALID_CONFIG = 'INVALID CONFIGS, PLEASE CHECK CONFIGS',
@@ -12,6 +13,8 @@ export enum SDK_ERROR_MESSAGES {
   MISSING_TARGET = 'MISSING TARGET FRAMEWORK, PLEASE CHECK AGAIN',
   INVALID_API_KEY = 'IVVALID API KEY, PLEASE CHECK AGAIN',
   MISSING_CONTAINER = 'MISSING CONTAINER ZONE, PLEASE CHECK AGAIN',
+  INVALID_TOKEN = 'TOKEN WAS EXPIRED OR INVALID',
+  INVALID_SESSION = 'SESSION WAS EXPIRED OR INVALID',
 }
 
 export class SDKError extends Error {
@@ -34,6 +37,13 @@ export class SDKError extends Error {
 export class InitializeError extends SDKError {
   constructor(message: string, recoverable: boolean = false) {
     super(message, SDK_ERROR_TYPES.INITIALIZE, recoverable);
+    Object.setPrototypeOf(this, InitializeError.prototype);
+  }
+}
+
+export class AuthenticationError extends SDKError {
+  constructor(message: string, recoverable: boolean = false) {
+    super(message, SDK_ERROR_TYPES.AUTHENTICATION, recoverable);
     Object.setPrototypeOf(this, InitializeError.prototype);
   }
 }

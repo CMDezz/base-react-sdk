@@ -1,18 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// import { AlertCircle, RefreshCcw, FileText } from 'lucide-react';
-// import {
-//   Alert,
-//   AlertDescription,
-//   AlertTitle,
-// } from '@shared/components/ui/alert';
-// import { button } from '@shared/components/ui/button';
-// import {
-//   Card,
-//   CardContent,
-//   CardFooter,
-//   CardHeader,
-//   CardTitle,
-// } from '@shared/components/ui/card';
 import { SDKError } from '@sdk/utils/errors';
 
 type Props = {

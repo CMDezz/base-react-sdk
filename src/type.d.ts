@@ -63,3 +63,11 @@ interface PreactRoot {
   render(children: preact.ComponentChild): void;
   unmount(): void;
 }
+
+interface WsResponse {
+  session_id: string;
+  status: string;
+  current_step: string;
+  completed_steps: string[];
+  reconnected: boolean;
+}

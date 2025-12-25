@@ -40,9 +40,6 @@ export function enableAxiosMock(instance: AxiosInstance) {
     const key = `${method} ${urlPath}`;
     const handler = mockRoutes[key];
 
-    console.log('key ', key);
-    console.log('mockRoutes ', mockRoutes);
-
     if (handler) {
       console.log(`%c [Mock Hit]: ${key}`, 'color: #00ff00');
       return await handler(config);
