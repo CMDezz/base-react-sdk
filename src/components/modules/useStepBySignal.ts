@@ -18,13 +18,12 @@ const useStepBySignal = ({
     }
   }, [lastMessage?.current_step]);
 
-  const nextStep = async (callback: () => void | Promise<void>) => {
+  const nextStep = async (callback?: () => void | Promise<void>) => {
     setLoading(true); // Start loading immediately on click
     try {
-      await callback();
+      await callback?.();
     } catch (err) {
       console.error('Operation failed:', err);
-      setLoading(false); // Only stop loading if the API call itself fails
     }
   };
 
@@ -32,6 +31,7 @@ const useStepBySignal = ({
     nextStep,
     loading,
     currentStep,
+    setCurrentStep,
   };
 };
 

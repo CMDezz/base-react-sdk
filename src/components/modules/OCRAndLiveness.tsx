@@ -44,7 +44,7 @@ const ContainerSkeleton = () => {
   );
 };
 const OCRAndLiveness = (props: Props) => {
-  const { currentStep, loading, nextStep } = useStepBySignal({
+  const { currentStep, loading, nextStep, setCurrentStep } = useStepBySignal({
     lastMessage: props.lastMessage,
   });
   const [option, setOption] = useState('');
@@ -201,6 +201,7 @@ const OCRAndLiveness = (props: Props) => {
   const handleOCRSelection = (option: string) => {
     setOption(option);
     // setStep('FRONT');
+    setCurrentStep(ENUM_STEPS.DOC_FONT);
   };
 
   const drawTrackingFrame = (canvasRef: RefObject<HTMLCanvasElement>) => {

@@ -6,7 +6,7 @@ const fakeFistMessage: WsResponse = {
   session_id: '123',
   status: '',
   reconnected: false,
-  current_step: ENUM_STEPS.DOC_FONT,
+  current_step: ENUM_STEPS.SELECT,
   completed_steps: [],
 };
 export function useSocketConnection(sessionId: string) {
