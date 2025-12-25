@@ -1,5 +1,4 @@
-import Button from '@shared/components/base/Button';
-import { useRef } from 'react';
+import { useRef } from 'preact/hooks';
 import VideoStream from './base/VideoStream';
 import { FaCamera } from 'react-icons/fa';
 
@@ -16,9 +15,9 @@ const OCRFront = ({ onCapture }: { onCapture: () => void }) => {
         <VideoStream videoRef={videoRef} />
       </div>
       <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-        <Button onClick={onCapture} size={'lg'}>
+        <button onClick={onCapture} className={'btn btn-lg'}>
           <FaCamera size={24} color="white" /> Capture
-        </Button>
+        </button>
       </div>
     </div>
   );

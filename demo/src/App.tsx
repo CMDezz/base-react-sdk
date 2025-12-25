@@ -30,38 +30,25 @@ function App() {
           open modal
         </button>
 
-        <Modal open={open} onClose={() => setOpen(false)} backdropClose>
-          {/* <Modal.Closebutton /> */}
-          <Modal.Heading>Welcome Back</Modal.Heading>
-          <Modal.Body>
-            This is a refactored modal using Preact and DaisyUI.
-          </Modal.Body>
-          {/* <Modal.Actions>
-            <button className="btn btn-primary">Save Changes</button>
-          </Modal.Actions> */}
-        </Modal>
-
         <div className="space-y-4">
-          {/* <button
-            className="w-full py-6 text-lg shadow-sm transition-all hover:scale-[1.02]"
+          <button
+            className="btn btn-primary w-full py-6 text-lg shadow-sm transition-all hover:scale-[1.02]"
             onClick={() => handleClick(MODULE_TYPE.FACE_MATCHING)}
           >
             Face Matching
           </button>
           <button
-            className="w-full py-6 text-lg shadow-sm transition-all hover:scale-[1.02]"
-            variant="outline"
+            className="btn btn-secondary btn-outline w-full py-6 text-lg shadow-sm transition-all hover:scale-[1.02]"
             onClick={() => handleClick(MODULE_TYPE.OCR_LIVE_NESS)}
           >
             OCR + Liveness
           </button>
           <button
-            className="w-full py-6 text-lg shadow-sm transition-all hover:scale-[1.02]"
-            variant="secondary"
+            className="btn btn-neutral btn-outline w-full py-6 text-lg shadow-sm transition-all hover:scale-[1.02]"
             onClick={() => handleClick(MODULE_TYPE.LIVE_NESS)}
           >
             Liveness
-          </button> */}
+          </button>
         </div>
       </div>
       <EkycDialog
