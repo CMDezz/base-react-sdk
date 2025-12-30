@@ -112,12 +112,59 @@ function Face({
     };
   }, [isFaceInFrame, onCapture]);
 
+  // Calculate progress percentage (0-100) for the 3-second countdown
+  const [countdown, setCountdown] = useState(0);
+
+  useEffect(() => {
+    if (isFaceInFrame === true && !capturedRef.current) {
+      const startTime = Date.now();
+      const interval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min((elapsed / 3000) * 100, 100);
+        setCountdown(progress);
+
+        if (progress >= 100) {
+          clearInterval(interval);
+        }
+      }, 50);
+
+      return () => clearInterval(interval);
+    } else {
+      setCountdown(0);
+    }
+  }, [isFaceInFrame]);
+
+  const getStatusMessage = () => {
+    if (isFaceInFrame === false) {
+      return {
+        text: 'Move closer and center your face',
+        icon: '📷',
+        color: 'text-warning',
+      };
+    }
+    return {
+      text: `Hold still... ${Math.ceil((100 - countdown) / 33.33)}s`,
+      icon: '✨',
+      color: 'text-success',
+    };
+  };
+
+  const status = getStatusMessage();
+
   return (
     <>
       <div className="w-full">
-        <h3>Face Search</h3>
+        <div className="text-center mb-4">
+          <h3 className="text-2xl font-bold mb-2 text-primary">
+            Face Verification
+          </h3>
+          <p className="text-sm text-gray-600">
+            Position your face in the center of the frame
+          </p>
+        </div>
+
         <div
-          className="m-auto w-full bg-gray-900 aspect-video relative overflow-hidden"
+          className="relative m-auto w-full aspect-video rounded-2xl overflow-hidden shadow-2xl bg-gray-900"
           style={{ margin: '1rem 0' }}
         >
           <VideoStream videoRef={videoRef} />
@@ -125,18 +172,31 @@ function Face({
             ref={canvasRef}
             className="absolute inset-0 pointer-events-none w-full h-full"
           />
+
+          {/* Face detection overlay frame */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="relative w-64 h-80 rounded-2xl transition-all duration-300 shadow-[0_0_0_9999px_rgba(0,0,0,0.5)]"></div>
+          </div>
         </div>
-        <div className="text-center my-2 text-sm">
-          {isFaceInFrame === null && 'Align your face within the frame.'}
-          {isFaceInFrame === false && 'Move closer and center your face.'}
-          {isFaceInFrame === true && 'Great! Hold still to capture.'}
+
+        <p className="text-base-content text-base text-center font-semibold">
+          {status.icon} {status.text}
+        </p>
+
+        {/* Status message */}
+        <div className="text-center mt-4 bg-gray-300 rounded-xl relative">
+          <div
+            className="h-full absolute bg-primary rounded-xl transition-all duration-50 ease-linear"
+            style={{ width: `${countdown}%` }}
+          ></div>
+          <div className="bg-gray-300 py-1"></div>
         </div>
       </div>
-      <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+
+      <div className="flex justify-center gap-3 mt-4">
         {onBack && (
           <button
-            className={'btn btn-lg'}
-            // size={'lg'}
+            className="btn btn-lg btn-outline hover:scale-105 active:scale-95 transition-transform duration-200"
             onClick={() => {
               webcamService.stopVideo();
               onBack();

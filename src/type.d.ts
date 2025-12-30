@@ -20,6 +20,10 @@ interface ThemeColors {
   //background
   background_primary: string;
   background_secondary: string;
+  background_success: string;
+  background_danger: string;
+  background_warning: string;
+  background_info: string;
 }
 
 interface ThemeConfig {

@@ -101,9 +101,9 @@ export default class FaceDetectorManager {
         const scaleX = displayWidth / videoElement.videoWidth;
         const scaleY = displayHeight / videoElement.videoHeight;
 
-        // detections.detections.forEach((detection: Detection) => {
-        //   this.drawDetectionScaled(detection, scaleX, scaleY);
-        // });
+        detections.detections.forEach((detection: Detection) => {
+          this.drawDetectionScaled(detection, scaleX, scaleY);
+        });
 
         faceInFrame = this.isFaceInFrame(
           detections.detections[0],

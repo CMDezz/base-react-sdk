@@ -1,5 +1,6 @@
 import { webcamService } from '@sdk/service/WebcamService';
-import { RefObject, useEffect } from 'react';
+import { RefObject } from 'preact';
+import { useEffect } from 'preact/hooks';
 
 type VideoStreamProps = {
   videoRef: RefObject<HTMLVideoElement>;

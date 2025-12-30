@@ -1,5 +1,11 @@
 import { useState } from 'preact/hooks';
-import { DEFAULT_THEME_CONFIG } from '@sdk/utils/config';
+import {
+  FaShieldAlt,
+  FaDatabase,
+  FaFingerprint,
+  FaFileContract,
+  FaArrowRight,
+} from 'react-icons/fa';
 
 interface ConsentProps {
   onAccept: () => void;
@@ -14,7 +20,9 @@ const Consent = ({ onAccept, onDecline }: ConsentProps) => {
     termsAndConditions: false,
   });
 
-  const allConsentsAccepted = Object.values(consents).every((value) => value === true);
+  const allConsentsAccepted = Object.values(consents).every(
+    (value) => value === true
+  );
 
   const handleConsentChange = (key: keyof typeof consents) => {
     setConsents((prev) => ({
@@ -35,141 +43,149 @@ const Consent = ({ onAccept, onDecline }: ConsentProps) => {
     }
   };
 
+  const consentItems = [
+    {
+      key: 'dataCollection' as const,
+      icon: FaDatabase,
+      title: 'Data Collection Consent',
+      description:
+        'I consent to the collection of my personal information and document data for identity verification purposes.',
+      gradient: 'from-blue-500 to-cyan-500',
+    },
+    {
+      key: 'dataProcessing' as const,
+      icon: FaShieldAlt,
+      title: 'Data Processing Consent',
+      description:
+        'I authorize the processing of my data using automated systems and AI technologies for verification and fraud prevention.',
+      gradient: 'from-purple-500 to-pink-500',
+    },
+    {
+      key: 'biometricData' as const,
+      icon: FaFingerprint,
+      title: 'Biometric Data Consent',
+      description:
+        'I consent to the capture and processing of my biometric data (facial images) for liveness detection and identity matching.',
+      gradient: 'from-emerald-500 to-teal-500',
+    },
+    {
+      key: 'termsAndConditions' as const,
+      icon: FaFileContract,
+      title: 'Terms & Conditions',
+      description:
+        'I have read and agree to the Terms of Service and Privacy Policy governing this identity verification process.',
+      gradient: 'from-orange-500 to-red-500',
+    },
+  ];
+
   return (
     <div className="sdk-view-consent">
       <div className="flex flex-col gap-6 py-4">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-2">Consent & Authorization</h2>
+          <div className="mb-4 flex justify-center">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary shadow-lg">
+              <FaShieldAlt size={25} color="#FFFFFF" />
+            </div>
+          </div>
+          <h2 className="text-3xl font-bold mb-2 text-primary">
+            Consent & Authorization
+          </h2>
           <p className="text-sm text-gray-600">
-            Please review and accept the following terms to proceed with identity verification
+            Please review and accept the following terms to proceed with
+            identity verification
           </p>
         </div>
-
         <div
-          className="flex flex-col gap-4 p-4 rounded-lg"
+          className="flex flex-col border-primary gap-4 p-4 rounded-2xl shadow-lg border-2 transition-all duration-300"
           style={{
-            background: DEFAULT_THEME_CONFIG.colors.background_secondary,
-            border: `1px solid ${DEFAULT_THEME_CONFIG.colors.border_primary}`,
             maxHeight: '400px',
             overflowY: 'auto',
           }}
         >
-          <div className="flex items-start gap-3">
-            <input
-              type="checkbox"
-              id="dataCollection"
-              checked={consents.dataCollection}
-              onChange={() => handleConsentChange('dataCollection')}
-              className="mt-1"
-              style={{ cursor: 'pointer' }}
-            />
-            <label
-              htmlFor="dataCollection"
-              className="flex-1 cursor-pointer"
-              style={{ color: DEFAULT_THEME_CONFIG.colors.text_primary }}
-            >
-              <strong>Data Collection Consent</strong>
-              <p className="text-sm mt-1" style={{ color: DEFAULT_THEME_CONFIG.colors.text_secondary }}>
-                I consent to the collection of my personal information and document data for identity verification purposes.
-              </p>
-            </label>
-          </div>
+          {consentItems.map((item, index) => {
+            const Icon = item.icon;
+            const isChecked = consents[item.key];
 
-          <div className="flex items-start gap-3">
-            <input
-              type="checkbox"
-              id="dataProcessing"
-              checked={consents.dataProcessing}
-              onChange={() => handleConsentChange('dataProcessing')}
-              className="mt-1"
-              style={{ cursor: 'pointer' }}
-            />
-            <label
-              htmlFor="dataProcessing"
-              className="flex-1 cursor-pointer"
-              style={{ color: DEFAULT_THEME_CONFIG.colors.text_primary }}
-            >
-              <strong>Data Processing Consent</strong>
-              <p className="text-sm mt-1" style={{ color: DEFAULT_THEME_CONFIG.colors.text_secondary }}>
-                I authorize the processing of my data using automated systems and AI technologies for verification and fraud prevention.
-              </p>
-            </label>
-          </div>
+            return (
+              <div
+                key={item.key}
+                className={`group relative rounded-xl border-2 p-4 transition-all duration-300 ${
+                  isChecked
+                    ? 'border-primary bg-green-50 shadow-md'
+                    : 'border-gray-200'
+                }`}
+                style={{
+                  animation: `fadeInUp 0.5s ease-out ${index * 0.1}s both`,
+                }}
+              >
+                <div className="flex items-start gap-4">
+                  <div className="relative shrink-0">
+                    <input
+                      type="checkbox"
+                      id={item.key}
+                      checked={isChecked}
+                      onChange={() => handleConsentChange(item.key)}
+                      className="sr-only"
+                    />
+                    <label
+                      htmlFor={item.key}
+                      className={`flex h-12 w-12 cursor-pointer items-center justify-center rounded-xl transition-all duration-300 ${
+                        isChecked
+                          ? `bg-linear-to-r ${item.gradient} shadow-lg scale-110`
+                          : 'bg-gray-100 group-hover:bg-gray-200'
+                      }`}
+                    >
+                      <Icon color="#FFFFFF" />
+                    </label>
+                  </div>
 
-          <div className="flex items-start gap-3">
-            <input
-              type="checkbox"
-              id="biometricData"
-              checked={consents.biometricData}
-              onChange={() => handleConsentChange('biometricData')}
-              className="mt-1"
-              style={{ cursor: 'pointer' }}
-            />
-            <label
-              htmlFor="biometricData"
-              className="flex-1 cursor-pointer"
-              style={{ color: DEFAULT_THEME_CONFIG.colors.text_primary }}
-            >
-              <strong>Biometric Data Consent</strong>
-              <p className="text-sm mt-1" style={{ color: DEFAULT_THEME_CONFIG.colors.text_secondary }}>
-                I consent to the capture and processing of my biometric data (facial images) for liveness detection and identity matching.
-              </p>
-            </label>
-          </div>
-
-          <div className="flex items-start gap-3">
-            <input
-              type="checkbox"
-              id="termsAndConditions"
-              checked={consents.termsAndConditions}
-              onChange={() => handleConsentChange('termsAndConditions')}
-              className="mt-1"
-              style={{ cursor: 'pointer' }}
-            />
-            <label
-              htmlFor="termsAndConditions"
-              className="flex-1 cursor-pointer"
-              style={{ color: DEFAULT_THEME_CONFIG.colors.text_primary }}
-            >
-              <strong>Terms & Conditions</strong>
-              <p className="text-sm mt-1" style={{ color: DEFAULT_THEME_CONFIG.colors.text_secondary }}>
-                I have read and agree to the Terms of Service and Privacy Policy governing this identity verification process.
-              </p>
-            </label>
-          </div>
+                  {/* Text Content */}
+                  <div className="flex-1 pt-1">
+                    <label htmlFor={item.key} className="cursor-pointer">
+                      <h3
+                        className={'text-base font-semibold mb-1 transition-colors duration-300'}
+                      >
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        {item.description}
+                      </p>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         <div className="flex flex-col gap-3">
           <button
             onClick={handleAccept}
             disabled={!allConsentsAccepted}
-            className="btn btn-lg btn-primary"
-            style={{
-              opacity: allConsentsAccepted ? 1 : 0.5,
-              cursor: allConsentsAccepted ? 'pointer' : 'not-allowed',
-            }}
+            className={`group relative overflow-hidden rounded-xl px-8 py-4 text-lg font-semibold text-white transition-all duration-300 ${
+              allConsentsAccepted
+                ? 'bg-primary shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] cursor-pointer'
+                : 'bg-gray-300 cursor-not-allowed'
+            }`}
           >
-            Accept & Continue
+            {allConsentsAccepted && (
+              <div className="absolute inset-0 bg-linear-to-r from-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+            )}
+            <span className="relative flex items-center justify-center gap-2">
+              Accept & Continue
+              <FaArrowRight />
+            </span>
           </button>
+
           {onDecline && (
             <button
               onClick={handleDecline}
-              className="btn btn-lg btn-outline"
-              style={{
-                borderColor: DEFAULT_THEME_CONFIG.colors.border_primary,
-                color: DEFAULT_THEME_CONFIG.colors.text_primary,
-              }}
+              className="rounded-xl cursor-pointer border-2 border-gray-200 px-8 py-4 text-lg font-semibold text-gray-700 transition-all duration-300"
             >
               Decline
             </button>
           )}
         </div>
-
-        {!allConsentsAccepted && (
-          <p className="text-xs text-center" style={{ color: DEFAULT_THEME_CONFIG.colors.text_secondary }}>
-            Please accept all consents to continue
-          </p>
-        )}
       </div>
     </div>
   );

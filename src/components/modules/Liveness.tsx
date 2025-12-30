@@ -32,7 +32,7 @@ const Liveness = (props: Props) => {
   };
 
   return (
-    <div className="sdk-container min-w-75 min-h-75 ">
+    <div className="sdk-container min-w-75 min-h-75 flex items-center">
       {step === 'FACE' && <Face onCapture={handleFaceCapture} />}
 
       {step === 'RESULT' && (

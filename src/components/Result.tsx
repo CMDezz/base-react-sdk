@@ -4,56 +4,29 @@ interface Props {
   onRestart: () => void;
 }
 
+import { FaCheckCircle } from 'react-icons/fa';
+
 function Result({
   data,
-
   // onRestart
 }: Props) {
+  console.log(data);
+
   return (
     <div className="sdk-view-result">
-      <h3>Scan Results</h3>
-      <div
-        style={{
-          background: '#f9f9f9',
-          padding: '1rem',
-          borderRadius: 4,
-          margin: '1rem 0',
-        }}
-      >
-        <div
-          className="flex flex-col gap-4"
-          style={{
-            height: 400,
-            overflowY: 'auto',
-          }}
-        >
-          {data.front && (
-            <>
-              <h3>Front OCR</h3>
-              <img class="w-1/3" src={data.front} />
-            </>
-          )}
-          {data.back && (
-            <>
-              <h3>Back OCR</h3>
-              <img class="w-1/3" src={data.back} />
-            </>
-          )}
-          {data.face && (
-            <>
-              <h3>Face</h3>
-              <div className="flex gap-4 w-full flex-wrap">
-                {data.face.images.map((face: string, i: number) => {
-                  return <img class="w-1/3" src={face} key={i} />;
-                })}
-              </div>
-            </>
-          )}
+      <div className="flex flex-col items-center">
+        <div className="mb-4 flex justify-center">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary shadow-lg">
+            <FaCheckCircle size={32} color="#FFFFFF" />
+          </div>
         </div>
+        <h3 className="text-3xl font-bold mb-2 text-primary">
+          Verification Complete
+        </h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          Your documents have been successfully scanned
+        </p>
       </div>
-      {/* <button className="btn" onClick={onRestart}>
-        Done
-      </button> */}
     </div>
   );
 }

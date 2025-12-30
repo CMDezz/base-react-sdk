@@ -48,7 +48,7 @@ export function EkycDialog(props: EkycDIalogProps) {
         }}
       >
         <Modal.Heading>
-          <p>EKYC Verif {moduleType}y</p>
+          <p>EKYC Verify {moduleType}</p>
         </Modal.Heading>
         <Modal.Body>
           <EkycSDK config={config} />
