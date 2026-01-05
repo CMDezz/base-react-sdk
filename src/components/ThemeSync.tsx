@@ -1,30 +1,39 @@
 import { DEFAULT_THEME_CONFIG } from '@sdk/utils/config';
 import { useEffect } from 'preact/hooks';
 
-export function ThemeSync() {
+interface Props {
+  context: SDKContext;
+}
+
+export function ThemeSync(props: Props) {
   useEffect(() => {
-    const root = document.documentElement;
+    const shadowRoot = props.context.shadowContainer; // ShadowRoot
+    const host = shadowRoot?.host as HTMLElement | null;
+
+    if (!host) return;
+
     const { colors } = DEFAULT_THEME_CONFIG;
 
-    // Map JS keys to daisyUI / CSS variables
-    const colorMap = {
+    const colorMap: Record<string, string | undefined> = {
       '--color-primary': colors.primary,
       '--color-secondary': colors.secondary,
       '--color-success': colors.success,
       '--color-info': colors.info,
       '--color-warning': colors.warning,
-      '--color-error': colors.danger, // daisyUI uses 'error'
-      
+      '--color-error': colors.danger,
+
       '--color-base-100': colors.background_primary,
       '--color-base-200': colors.background_secondary,
       '--color-base-content': colors.text_primary,
     };
+    // console.log(colorMap);
 
-    // Apply each color to the :root element
     Object.entries(colorMap).forEach(([variable, value]) => {
-      if (value) root.style.setProperty(variable, value);
+      if (value) {
+        host.style.setProperty(variable, value);
+      }
     });
-  }, []); // Re-run if config changes
+  }, []);
 
-  return null; 
+  return null;
 }

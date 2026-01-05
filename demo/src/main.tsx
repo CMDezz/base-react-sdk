@@ -1,7 +1,6 @@
 import App from './App.tsx';
-// import '@shared/styles/index.css';
+import '@shared/styles/index.css';
 import { render } from 'preact/compat';
-
 const sdkUri = import.meta.env.VITE_SDK_URI;
 // const env = import.meta.env;
 

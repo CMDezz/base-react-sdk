@@ -15,7 +15,7 @@ function SDKControl({ context, err }: Props) {
   }
   return (
     <>
-      <ThemeSync />
+      <ThemeSync context={context} />
       <SDKContent context={context} err={err} />
     </>
   );
