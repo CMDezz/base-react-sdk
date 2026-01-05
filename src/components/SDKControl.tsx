@@ -1,4 +1,4 @@
-import '@shared/styles/index.css';
+// import '@shared/styles/index.css';
 
 import SDKContent from './SDKContent';
 import SDKErrorFallback from './SDKErrorFallback';

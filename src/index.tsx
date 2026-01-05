@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // import { createRoot, Root } from 'react-dom/client';
 import { createRoot } from 'preact/compat/client';
-
+import styles from '../shared/styles/index.css?inline';
 import SDKControl from './components/SDKControl.tsx';
 import './SavvySDKComp.ts';
 import { DEFAULT_SDK_CONFIG } from './utils/config.ts';
@@ -11,7 +11,10 @@ import {
   SDKError,
 } from './utils/errors.ts';
 
-const rootMap = new WeakMap<Element, PreactRoot>();
+const rootMap = new WeakMap<ShadowRoot, PreactRoot>();
+// Create a single shared stylesheet instance
+const sheet = new CSSStyleSheet();
+sheet.replaceSync(styles);
 
 class EkycInstance {
   private context: SDKContext;
@@ -31,13 +34,13 @@ class EkycInstance {
     //check selector
     const container = document.querySelector(`div[is="savvy-sdk-comp"]`);
     // const container = document.querySelector(`#savvy-sdk-comp`);
-    if (container) {
+    if (container?.shadowRoot) {
       //Lưu lại giá trị root khi initialize
       //Lần sau chỉ cần render
       if (!this.root && !this.initialized) {
-        const root = rootMap.get(container);
+        const root = rootMap.get(container.shadowRoot);
         if (root) {
-          rootMap.set(container, root);
+          rootMap.set(container.shadowRoot, root);
           this.root = root;
         }
       }
@@ -99,32 +102,22 @@ class EkycInstance {
       throw new InitializeError(SDK_ERROR_MESSAGES.MISSING_CONTAINER);
     }
 
+    if (!this.context.shadowContainer) {
+      throw new InitializeError(SDK_ERROR_MESSAGES.MISSING_CONTAINER);
+    }
+
+    if (this.context.shadowContainer.adoptedStyleSheets.length === 0) {
+      this.context.shadowContainer.adoptedStyleSheets = [sheet];
+    }
+
     //kiểm tra root mỗi lần rerender
     if (!this.root) {
-      const root = createRoot(this.context.container);
-      rootMap.set(this.context.container, root);
+      const root = createRoot(this.context.shadowContainer);
+      rootMap.set(this.context.shadowContainer, root);
       this.root = root;
     }
 
     this.root.render(<SDKControl context={this.context} err={err} />);
-
-    //bỏ
-    // createRoot(this.context.container).render(
-    //   <SDKControl context={this.context} err={err} />
-    // );
-    // if (target === 'REACT') {
-    //   ReactDOM.render(
-    //     <SDKControl context={this.context} err={err} />,
-    //     this.context.container
-    //   );
-    // } else {
-    //   if (!this.context.container) {
-    //     throw new InitializeError(SDK_ERROR_MESSAGES.MISSING_CONTAINER);
-    //   }
-    //   createRoot(this.context.container).render(
-    //     <SDKControl context={this.context} err={err} />
-    //   );
-    // }
   }
 
   //init sdk

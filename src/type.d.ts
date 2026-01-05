@@ -75,3 +75,8 @@ interface WsResponse {
   completed_steps: string[];
   reconnected: boolean;
 }
+
+declare module '*.css?inline' {
+  const content: string;
+  export default content;
+}
